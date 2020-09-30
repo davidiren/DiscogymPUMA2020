@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\David\\Source\\Repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj": {}
+    "C:\\Users\\David\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj": {}
   },
   "projects": {
-    "C:\\Users\\David\\Source\\Repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj": {
+    "C:\\Users\\David\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\David\\Source\\Repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
+        "projectUniqueName": "C:\\Users\\David\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
         "projectName": "DiscogymPUMA2020",
-        "projectPath": "C:\\Users\\David\\Source\\Repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
+        "projectPath": "C:\\Users\\David\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
         "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\David\\Source\\Repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\obj\\",
+        "outputPath": "C:\\Users\\David\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
