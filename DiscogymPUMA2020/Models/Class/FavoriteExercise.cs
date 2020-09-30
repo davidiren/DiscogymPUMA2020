@@ -7,5 +7,12 @@ namespace DiscogymPUMA2020.Models.Class
 {
     public class FavoriteExercise
     {
+        public FavoriteExercise(){ }
+
+        public int UserId { get; set; }
+        public int WorkoutId { get; set; }
+
+        public virtual User User { get; set; }
+        public virtual Workout Workout { get; set; }
     }
 }
