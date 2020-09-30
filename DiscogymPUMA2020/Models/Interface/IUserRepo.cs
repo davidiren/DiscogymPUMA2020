@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DiscogymPUMA2020.Models.Class;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DiscogymPUMA2020.Models.Interface
 {
-    interface IUserRepo
+    public interface IUserRepo
     {
     }
 }
