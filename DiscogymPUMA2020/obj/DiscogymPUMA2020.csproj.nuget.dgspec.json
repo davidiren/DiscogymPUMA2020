@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\danib\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj": {}
   },
   "projects": {
@@ -16,12 +17,27 @@
         "configFilePaths": [
           "C:\\Users\\danib\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+    "/Users/idaliljeback/Projects/DiscogymPUMA2020/DiscogymPUMA2020/DiscogymPUMA2020.csproj": {}
+  },
+  "projects": {
+    "/Users/idaliljeback/Projects/DiscogymPUMA2020/DiscogymPUMA2020/DiscogymPUMA2020.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/idaliljeback/Projects/DiscogymPUMA2020/DiscogymPUMA2020/DiscogymPUMA2020.csproj",
+        "projectName": "DiscogymPUMA2020",
+        "projectPath": "/Users/idaliljeback/Projects/DiscogymPUMA2020/DiscogymPUMA2020/DiscogymPUMA2020.csproj",
+        "packagesPath": "/Users/idaliljeback/.nuget/packages/",
+        "outputPath": "/Users/idaliljeback/Projects/DiscogymPUMA2020/DiscogymPUMA2020/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/idaliljeback/.config/NuGet/NuGet.Config"
+>>>>>>> 6eb4c6a... test
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,12 +54,15 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+<<<<<<< HEAD
             "Microsoft.CodeAnalysis.FxCopAnalyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.3.0, )"
             },
+=======
+>>>>>>> 6eb4c6a... test
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.8, )"
@@ -85,7 +104,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.402/RuntimeIdentifierGraph.json"
+>>>>>>> 6eb4c6a... test
         }
       }
     }
