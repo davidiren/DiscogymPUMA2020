@@ -1,0 +1,6 @@
+﻿För att Kryptera: EncryptByPassPhrase('nykel', 'lösenord')
+---- nykel så har jag använt "key"
+
+
+Dekryptering: convert(varchar(100),DECRYPTBYPASSPHRASE('nykel',lösenord))
+---- denna dekrypterar och samtidigt konverterar till string så lösen är användbart

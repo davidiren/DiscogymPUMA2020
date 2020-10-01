@@ -8973,19 +8973,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danib\\.nuget\\packages\\": {}
+    "C:\\Users\\lordj\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danib\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
+      "projectUniqueName": "C:\\Users\\lordj\\Source\\Repos\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
       "projectName": "DiscogymPUMA2020",
-      "projectPath": "C:\\Users\\danib\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
-      "packagesPath": "C:\\Users\\danib\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danib\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\obj\\",
+      "projectPath": "C:\\Users\\lordj\\Source\\Repos\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
+      "packagesPath": "C:\\Users\\lordj\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lordj\\Source\\Repos\\DiscogymPUMA2020\\DiscogymPUMA2020\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\danib\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\lordj\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9056,7 +9056,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
