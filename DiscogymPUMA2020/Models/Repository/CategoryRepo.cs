@@ -14,7 +14,7 @@ namespace DiscogymPUMA2020.Models.Repository
         {
             context = _context;
         }
-        public IEnumerable<Category> GetCategories => throw new NotImplementedException();
+        public IEnumerable<Category> GetCategories => context.Category;
 
         public Category GetCategory(int id)
         {
