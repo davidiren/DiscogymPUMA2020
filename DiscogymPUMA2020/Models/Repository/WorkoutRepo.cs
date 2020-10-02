@@ -1,5 +1,6 @@
 ﻿using DiscogymPUMA2020.Models.Class;
 using DiscogymPUMA2020.Models.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,31 +15,36 @@ namespace DiscogymPUMA2020.Models.Repository
         {
             context = _context;
         }
-        public IEnumerable<Workout> GetWorkouts => throw new NotImplementedException();
+        public IEnumerable<Workout> GetWorkouts => context.Workout;
 
         public void AddWorkout(Workout workout)
         {
-            throw new NotImplementedException();
+            context.Workout.Add(workout);
+            context.SaveChangesAsync();
         }
 
         public Workout GetWorkout(int id)
         {
-            throw new NotImplementedException();
+            return context.Workout.Find(id);
         }
 
         public IEnumerable<Workout> GetWorkoutsByUser(int id)
         {
-            throw new NotImplementedException();
+            return context.Workout.Where(r => r.CreatedByUserId == id)
+                .Include(r => r.User);
         }
 
         public void RemoveWorkout(int? id)
         {
-            throw new NotImplementedException();
+            Workout workout = context.Workout.Find(id);
+            context.Workout.Remove(workout);
+            context.SaveChangesAsync();
         }
 
         public void UpdateWorkout(Workout workout)
         {
-            throw new NotImplementedException();
+            context.Workout.Update(workout);
+            context.SaveChangesAsync();
         }
     }
 }

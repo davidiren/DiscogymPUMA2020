@@ -15,11 +15,12 @@ namespace DiscogymPUMA2020.Models.Repository
         {
             context = _context;
         }
-        public IEnumerable<Mood> GetMoods => throw new NotImplementedException();
+        public IEnumerable<Mood> GetMoods => context.Mood;
 
         public Mood GetMood(int id)
         {
-            throw new NotImplementedException();
+            Mood mood = context.Mood.Find(id);
+            return mood;
         }
     }
 }

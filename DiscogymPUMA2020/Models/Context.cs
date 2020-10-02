@@ -17,6 +17,7 @@ namespace DiscogymPUMA2020.Models
         public DbSet<User> User { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Exercise> Exercise { get; set; }
+        public DbSet<ExerciseLevel> ExerciseLevel { get; set; }
         public DbSet<ExerciseGoal> ExerciseGoal { get; set; }
         public DbSet<FavoriteExercise> FavoriteExercise { get; set; }
         public DbSet<Log> Log { get; set; }

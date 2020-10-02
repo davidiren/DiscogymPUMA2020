@@ -18,7 +18,8 @@ namespace DiscogymPUMA2020.Models.Repository
 
         public Category GetCategory(int id)
         {
-            throw new NotImplementedException();
+            Category category = context.Category.Find(id);
+            return category;
         }
     }
 }

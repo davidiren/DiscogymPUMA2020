@@ -14,11 +14,12 @@ namespace DiscogymPUMA2020.Models.Repository
         {
             context = _context;
         }
-        public IEnumerable<Log> GetLogs => throw new NotImplementedException();
+        public IEnumerable<Log> GetLogs => context.Log;
 
         public void AddLog(Log log)
         {
-            throw new NotImplementedException();
+            context.Log.Add(log);
+            context.SaveChangesAsync();
         }
 
         public Log GetLog(int id)

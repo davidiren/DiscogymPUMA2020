@@ -15,11 +15,12 @@ namespace DiscogymPUMA2020.Models.Repository
         {
             context = _context;
         }
-        public IEnumerable<ExerciseGoal> GetExerciseGoals => throw new NotImplementedException();
+        public IEnumerable<ExerciseGoal> GetExerciseGoals => context.ExerciseGoal;
 
         public ExerciseGoal GetExerciseGoal(int id)
         {
-            throw new NotImplementedException();
+            ExerciseGoal exerciseGoal = context.ExerciseGoal.Find(id);
+            return exerciseGoal;
         }
     }
 }

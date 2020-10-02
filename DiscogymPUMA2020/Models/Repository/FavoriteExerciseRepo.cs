@@ -1,5 +1,6 @@
 ﻿using DiscogymPUMA2020.Models.Class;
 using DiscogymPUMA2020.Models.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,31 +15,35 @@ namespace DiscogymPUMA2020.Models.Repository
         {
             context = _context;
         }
-        public IEnumerable<FavoriteExercise> GetFavoriteExercises => throw new NotImplementedException();
+        public IEnumerable<FavoriteExercise> GetFavoriteExercises => context.FavoriteExercise;
 
         public void AddFavorite(FavoriteExercise favoriteExercise)
         {
-            throw new NotImplementedException();
+            context.FavoriteExercise.Add(favoriteExercise);
+            context.SaveChangesAsync();
         }
 
         public FavoriteExercise GetFavorite(int id)
         {
-            throw new NotImplementedException();
+            FavoriteExercise favoriteExercise = context.FavoriteExercise.Find(id);
+            return favoriteExercise;
         }
 
         public IEnumerable<FavoriteExercise> GetFavoritesByUser(int id)
         {
-            throw new NotImplementedException();
+            return context.FavoriteExercise.Where(r => r.UserId == id).Include(r => r.User);
         }
 
         public IEnumerable<FavoriteExercise> GetFavoritesByWorkout(int id)
         {
-            throw new NotImplementedException();
+            return context.FavoriteExercise.Where(r => r.WorkoutId == id).Include(r => r.Workout);
         }
 
         public void RemoveFavorite(int? id)
         {
-            throw new NotImplementedException();
+            FavoriteExercise favoriteExercise = context.FavoriteExercise.Find(id);
+            context.FavoriteExercise.Remove(favoriteExercise);
+            context.SaveChangesAsync();
         }
     }
 }

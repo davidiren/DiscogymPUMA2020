@@ -1,5 +1,6 @@
 ﻿using DiscogymPUMA2020.Models.Class;
 using DiscogymPUMA2020.Models.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace DiscogymPUMA2020.Models.Repository
         {
             context = _context;
         }
-        public IEnumerable<Exercise> GetExercises => throw new NotImplementedException();
+        public IEnumerable<Exercise> GetExercises => context.Exercise;
 
         public Exercise GetExercise(int id)
         {

@@ -14,11 +14,12 @@ namespace DiscogymPUMA2020.Models.Repository
         {
             context = _context;
         }
-        public IEnumerable<ExerciseLevel> GetExerciseLevels => throw new NotImplementedException();
+        public IEnumerable<ExerciseLevel> GetExerciseLevels => context.ExerciseLevel;
 
         public ExerciseLevel GetExerciseLevel(int id)
         {
-            throw new NotImplementedException();
+            ExerciseLevel exerciseLevel = context.ExerciseLevel.Find(id);
+            return exerciseLevel;
         }
     }
 }
