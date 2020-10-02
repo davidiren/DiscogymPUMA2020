@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rRm+SubtrBQpXLJjMaWeCi6MOLgP+SvQHmENS0sMo0RW8geAstKUQ6C3CXvElLf6sybYXoTzKfnPGiBCXsD3Sg==",
+  "dgSpecHash": "7zQC22nvezuw4pLQPp80H3cYHKR2ITOVrNehei4IZgmn7j4VotDxo5t+0Ggo9YJV6luo55WHTxFQp5wbpDuSRQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danib\\source\\repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
+  "projectFilePath": "C:\\Users\\danib\\Source\\Repos\\davidiren\\DiscogymPUMA2020\\DiscogymPUMA2020\\DiscogymPUMA2020.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danib\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\danib\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",

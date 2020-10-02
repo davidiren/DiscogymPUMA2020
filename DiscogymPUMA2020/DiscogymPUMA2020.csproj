@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Repository\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\Images\HemGymSwitch_GYM.png" />
     <None Include="wwwroot\Images\HemGymSwitch_HEM.png" />
   </ItemGroup>

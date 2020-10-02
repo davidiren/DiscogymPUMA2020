@@ -335,3 +335,5 @@ C:\Users\lordj\Source\Repos\DiscogymPUMA2020\DiscogymPUMA2020\obj\Debug\netcorea
 C:\Users\lordj\Source\Repos\DiscogymPUMA2020\DiscogymPUMA2020\obj\Debug\netcoreapp3.1\DiscogymPUMA2020.dll
 C:\Users\lordj\Source\Repos\DiscogymPUMA2020\DiscogymPUMA2020\obj\Debug\netcoreapp3.1\DiscogymPUMA2020.pdb
 C:\Users\lordj\Source\Repos\DiscogymPUMA2020\DiscogymPUMA2020\obj\Debug\netcoreapp3.1\DiscogymPUMA2020.genruntimeconfig.cache
+C:\Users\danib\Source\Repos\davidiren\DiscogymPUMA2020\DiscogymPUMA2020\obj\Debug\netcoreapp3.1\DiscogymPUMA2020.csproj.CoreCompileInputs.cache
+C:\Users\danib\Source\Repos\davidiren\DiscogymPUMA2020\DiscogymPUMA2020\obj\Debug\netcoreapp3.1\DiscogymPUMA2020.genruntimeconfig.cache
