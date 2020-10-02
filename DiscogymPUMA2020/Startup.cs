@@ -1,4 +1,6 @@
 using DiscogymPUMA2020.Models;
+using DiscogymPUMA2020.Models.Interface;
+using DiscogymPUMA2020.Models.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +23,17 @@ namespace DiscogymPUMA2020
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Context>(options => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB; Database=Puma; Trusted_Connection=True; ConnectRetryCount=1"));
+            services.AddTransient<ICategoryRepo, CategoryRepo>();
+            services.AddTransient<IExerciseGoalRepo, ExerciseGoalRepo>();
+            services.AddTransient<IExerciseLevelRepo, ExerciseLevelRepo>();
+            services.AddTransient<IExerciseRepo, ExerciseRepo>();
+            services.AddTransient<IFavoriteExerciseRepo, FavoriteExerciseRepo>();
+            services.AddTransient<ILogRepo, LogRepo>();
+            services.AddTransient<IMoodRepo, MoodRepo>();
+            services.AddTransient<IPlanRepo, PlanRepo>();
+            services.AddTransient<IUserRepo, UserRepo>();
+            services.AddTransient<IWorkoutExerciseRepo, WorkoutExerciseRepo>();
+            services.AddTransient<IWorkoutRepo, WorkoutRepo>();
             services.AddControllersWithViews();
         }
 
