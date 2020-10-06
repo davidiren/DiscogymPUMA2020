@@ -9,11 +9,11 @@ using DiscogymPUMA2020.Models;
 
 namespace DiscogymPUMA2020.Controllers
 {
-    public class HomeController : Controller
+    public class PlanController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<PlanController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public PlanController(ILogger<PlanController> logger)
         {
             _logger = logger;
         }

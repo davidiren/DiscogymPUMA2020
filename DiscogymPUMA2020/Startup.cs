@@ -46,7 +46,7 @@ namespace DiscogymPUMA2020
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Plan/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -61,7 +61,7 @@ namespace DiscogymPUMA2020
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Plan}/{action=Index}/{id?}");
             });
         }
     }
