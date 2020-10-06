@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DiscogymPUMA2020.Models;
+using DiscogymPUMA2020.Models.Interface;
 
 namespace DiscogymPUMA2020.Controllers
 {
     public class PlanController : Controller
     {
+        private readonly ICategoryRepo _categoryRepo;
         private readonly ILogger<PlanController> _logger;
 
-        public PlanController(ILogger<PlanController> logger)
+        public PlanController(ILogger<PlanController> logger, ICategoryRepo categoryRepo)
         {
+            _categoryRepo = categoryRepo;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var category = _categoryRepo.GetCategories;
+            return View(category);
         }
 
         public IActionResult Privacy()
