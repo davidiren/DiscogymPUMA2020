@@ -8,10 +8,9 @@ namespace DiscogymPUMA2020.Models.Class
     public class Exercise
     {
         public Exercise()
-
-            {
-
-            }
+        {
+            WorkoutExercises = new HashSet<WorkoutExercise>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public int CategoryId { get; set; }
@@ -22,6 +21,8 @@ namespace DiscogymPUMA2020.Models.Class
 
         public virtual Category Category { get; set; }
         public virtual ExerciseLevel ExerciseLevel { get; set; }
+
+        public virtual IEnumerable<WorkoutExercise> WorkoutExercises { get; set; }
 
     }
 }
