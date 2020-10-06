@@ -12,6 +12,6 @@ namespace DiscogymPUMA2020.Models.Interface
         IEnumerable<FavoriteExercise> GetFavoritesByUser(int id);
         IEnumerable<FavoriteExercise> GetFavoritesByWorkout(int id);
         void AddFavorite(FavoriteExercise favoriteExercise);
-        void RemoveFavorite(FavoriteExercise favoriteExercise);
+        void RemoveFavorite(int? id);
     }
 }
