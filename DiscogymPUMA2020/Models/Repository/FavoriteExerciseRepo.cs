@@ -23,12 +23,6 @@ namespace DiscogymPUMA2020.Models.Repository
             context.SaveChangesAsync();
         }
 
-        public FavoriteExercise GetFavorite(int id)
-        {
-            FavoriteExercise favoriteExercise = context.FavoriteExercise.Find(id);
-            return favoriteExercise;
-        }
-
         public IEnumerable<FavoriteExercise> GetFavoritesByUser(int id)
         {
             return context.FavoriteExercise.Where(r => r.UserId == id).Include(r => r.User);

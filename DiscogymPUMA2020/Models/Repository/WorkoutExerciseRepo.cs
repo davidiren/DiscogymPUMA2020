@@ -17,12 +17,6 @@ namespace DiscogymPUMA2020.Models.Repository
         }
         public IEnumerable<WorkoutExercise> GetWorkoutExercises => context.WorkoutExercise;
 
-        public WorkoutExercise GetWorkoutExercise(int id)
-        {
-            WorkoutExercise workoutExercise = context.WorkoutExercise.Find(id);
-            return workoutExercise;
-        }
-
         public IEnumerable<WorkoutExercise> GetWorkoutExercisesByExercise(int id)
         {
             return context.WorkoutExercise.Where(r => r.ExerciseId == id)
