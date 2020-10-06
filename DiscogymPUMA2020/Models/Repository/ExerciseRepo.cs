@@ -19,17 +19,21 @@ namespace DiscogymPUMA2020.Models.Repository
 
         public Exercise GetExercise(int id)
         {
-            throw new NotImplementedException();
+            return context.Exercise.Include(r => r.Category)
+                .Include(r => r.ExerciseLevel)
+                .FirstOrDefault(m => m.Id == id);
         }
 
         public IEnumerable<Exercise> GetExercisesByCategory(int id)
         {
-            throw new NotImplementedException();
+            return context.Exercise.Where(r => r.CategoryId == id)
+                .Include(r => r.Category);
         }
 
         public IEnumerable<Exercise> GetExercisesByLevel(int id)
         {
-            throw new NotImplementedException();
+            return context.Exercise.Where(r => r.ExerciseLevelId == id)
+                .Include(r => r.ExerciseLevel);
         }
     }
 }
