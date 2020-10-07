@@ -1,49 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using DiscogymPUMA2020.Models.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DiscogymPUMA2020.Controllers
 {
     public class ProgramController : Controller
     {
-        // GET: ProgramController
-        public ActionResult Index()
+        private readonly IWorkoutExerciseRepo _workoutExercise;
+        private readonly IWorkoutRepo _workout;
+        private readonly IExerciseRepo _exercise;
+        private readonly ICategoryRepo _category;
+
+        public ProgramController(IWorkoutExerciseRepo workoutExercise, IWorkoutRepo workout, IExerciseRepo exercise, ICategoryRepo category)
         {
-            return View();
+            _workoutExercise = workoutExercise;
+            _workout = workout;
+            _exercise = exercise;
+            _category = category;
         }
 
+        // GET: ProgramController
+        public IActionResult Index()
+        {
+            var categories = _category.GetCategories;
+            return View(categories);
+        }
+
+        /*
+
         // GET: ProgramController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
             return View();
         }
 
         // GET: ProgramController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create => View();
 
         // POST: ProgramController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // GET: ProgramController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
             return View();
         }
@@ -57,14 +59,14 @@ namespace DiscogymPUMA2020.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
-            catch
+           catch
             {
                 return View();
             }
         }
 
         // GET: ProgramController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             return View();
         }
@@ -82,6 +84,6 @@ namespace DiscogymPUMA2020.Controllers
             {
                 return View();
             }
-        }
+        }*/
     }
 }
