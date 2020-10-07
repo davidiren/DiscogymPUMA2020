@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace DiscogymPUMA2020.Models.Class
         public int Id { get; set; }
         public string Name { get; set; }
         public int CategoryId { get; set; }
-        public int ExerciseLevelId { get; set; }
+        public int LevelId { get; set; }
         public int Sets { get; set; }
         public int Reps { get; set; }
         public string Video { get; set; }

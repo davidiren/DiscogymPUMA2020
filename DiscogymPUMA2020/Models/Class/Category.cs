@@ -9,13 +9,13 @@ namespace DiscogymPUMA2020.Models.Class
     {
         public Category()
         {
-            Exercise = new HashSet<Exercise>();
+            Exercises = new HashSet<Exercise>();
         }
         
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public virtual ICollection<Exercise> Exercise { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
     }    
 }

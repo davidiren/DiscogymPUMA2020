@@ -1,5 +1,10 @@
-﻿using DiscogymPUMA2020.Models.Interface;
+﻿using DiscogymPUMA2020.Models.Class;
+using DiscogymPUMA2020.Models.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
 
 namespace DiscogymPUMA2020.Controllers
 {
@@ -20,8 +25,12 @@ namespace DiscogymPUMA2020.Controllers
 
         // GET: ProgramController
         public IActionResult Index()
-        {
+        {            
             var categories = _category.GetCategories;
+            var exercises = _exercise.GetExercises;
+
+            //var model = new Tuple< IEnumerable<Category>, IEnumerable<Exercise>> (categories, exercises);
+
             return View(categories);
         }
 

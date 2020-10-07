@@ -9,14 +9,14 @@ namespace DiscogymPUMA2020.Models.Class
     {
         public ExerciseLevel()
         {
-            User = new HashSet<User>();
-            Exercise = new HashSet<Exercise>();
+            Users = new HashSet<User>();
+            Exercises = new HashSet<Exercise>();
         }
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public virtual ICollection<User> User { get; set; }
-        public virtual ICollection<Exercise> Exercise { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
     }
 }

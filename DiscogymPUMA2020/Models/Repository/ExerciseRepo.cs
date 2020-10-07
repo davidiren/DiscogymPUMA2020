@@ -32,7 +32,7 @@ namespace DiscogymPUMA2020.Models.Repository
 
         public IEnumerable<Exercise> GetExercisesByLevel(int id)
         {
-            return context.Exercise.Where(r => r.ExerciseLevelId == id)
+            return context.Exercise.Where(r => r.LevelId == id)
                 .Include(r => r.ExerciseLevel);
         }
     }

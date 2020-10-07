@@ -4,32 +4,35 @@
     ViewData["Title"] = "Program";
 }
 
-<h1>Index</h1>
+<div class="border-bottom">
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <img src="~/Images/mirror-ball.png" width="30" height="30" class="d-inline-block alignt-top" loading="lazy" />
+        <h2 class="px-2">@ViewData["Title"]</h2>
+        <div class="navbar-nav ml-auto">
+            <button type="button" class="btn btn-light btn-sm">
+                <img src="~/Images/HemGymSwitch_GYM.png" width="30" height="30" class="d-inline-block" loading="lazy" />
+            </button>
+        </div>
+    </nav>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container border-0">
+    <div class="row align-items-start my-2">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card border-0" style="width: 70px; height: 81px;">
+                    <img src="~/Images/Categories/Cate.png" class="card-img rounded-circle bg-light" />
+                    <p class="card-subtitle align-text-bottom text-center">@Html.DisplayFor(modeItem => item.Name)</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="jumbotron jumbotron-fluid bg-white">
+    <h5>Pass</h5>
+        <div class="media bg-success">
+            <div class="media-body">
+            </div>
+        </div>
+</div>
