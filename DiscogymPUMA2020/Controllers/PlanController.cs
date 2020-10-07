@@ -7,13 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DiscogymPUMA2020.Models;
 using DiscogymPUMA2020.Models.Interface;
+using DiscogymPUMA2020.Models.Helpers;
 
 namespace DiscogymPUMA2020.Controllers
 {
     public class PlanController : Controller
     {
         private readonly ICategoryRepo _categoryRepo;
+        private readonly IPlanRepo _planRepo;
+        private readonly IWorkoutRepo _workoutRepo;
         private readonly ILogger<PlanController> _logger;
+        private DateHelper _weekHelper;
 
         public PlanController(ILogger<PlanController> logger, ICategoryRepo categoryRepo)
         {
@@ -24,6 +28,7 @@ namespace DiscogymPUMA2020.Controllers
         public IActionResult Index()
         {
             var category = _categoryRepo.GetCategories;
+            _weekHelper = new DateHelper();
             return View(category);
         }
 
