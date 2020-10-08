@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,7 +18,9 @@ namespace DiscogymPUMA2020.Models.Class
         public int Id { get; set; }
         public byte Pswd { get; set; }
         public string Name { get; set; }
+        [ForeignKey("ExerciseGoal")]
         public int ExerciseGoalId { get; set; }
+        [ForeignKey("ExerciseLevel")]
         public int ExerciseLevelId { get; set; }
 
         public virtual ExerciseGoal ExerciseGoal { get; set; }

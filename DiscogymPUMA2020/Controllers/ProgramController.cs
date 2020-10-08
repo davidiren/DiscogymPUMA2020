@@ -31,7 +31,7 @@ namespace DiscogymPUMA2020.Controllers
 
             //var model = new Tuple< IEnumerable<Category>, IEnumerable<Exercise>> (categories, exercises);
 
-            return View(categories);
+            return View(exercises);
         }
 
         /*

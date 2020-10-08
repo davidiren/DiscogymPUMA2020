@@ -14,7 +14,9 @@ namespace DiscogymPUMA2020.Models.Class
         }
         public int Id { get; set; }
         public string Name { get; set; }
+        [ForeignKey("Category")]
         public int CategoryId { get; set; }
+        [ForeignKey("ExerciseLevel")]
         public int LevelId { get; set; }
         public int Sets { get; set; }
         public int Reps { get; set; }
