@@ -8,14 +8,15 @@ namespace DiscogymPUMA2020.Models.Helpers
 {
     public class DateHelper
     {
-        private string Today { get; set; }
+        public DateTime Today { get; set; }
         private DateTime StartOfWeek { get; set; }
         private string FullWeek { get; set; }
-        private string[] FormatedWeek;
+        private List<DayAndDate> FormatedWeek;
 
         public DateHelper()
         {
-            Today = DateTime.Today.ToString("D");
+            Today = DateTime.Today;
+            FormatedWeek = new List<DayAndDate>();
             GetWeekDay();
         }
 
@@ -40,31 +41,51 @@ namespace DiscogymPUMA2020.Models.Helpers
             FullWeek = string.Join("," /*+ Environment.NewLine*/, Enumerable.Range(0, 7).Select(i => StartOfWeek.AddDays(i).ToString("dd-dddd"))); 
 
             //testing
-            Console.WriteLine("Today: {0}", Today);
-            Console.WriteLine("start of week: {0}", StartOfWeek);
-            Console.WriteLine("FullWeek: {0}", FullWeek);
+            //Console.WriteLine("Today: {0}", Today);
+            //Console.WriteLine("start of week: {0}", StartOfWeek);
+            //Console.WriteLine("FullWeek: {0}", FullWeek);
             MakeProperWeekFormat();
             
         }
-
+        /**
+         * This gives == exempelvis 07-T, i.e. dagens datum och första bokstaven för dagen
+         */
         private void MakeProperWeekFormat()
         {
-            string[] splitWeek = FullWeek.ToUpper().Split(",");
+            string[] splitWeek = FullWeek.ToUpper().Split(","); //fixa capslock på allt och dela upp alla dagar
             int i = 0;
             
             foreach(string s in splitWeek)
             {
                 splitWeek[i] = s.Substring(0, 4);
-                Console.WriteLine(splitWeek[i]);
+                //FormatedWeek.Add(new DayAndDate(splitWeek[i].Substring(0,2), splitWeek[i].Substring(2, 2)));
+                DayAndDate temp = new DayAndDate(splitWeek[i].Split("-"));
+                FormatedWeek.Add(temp);
                 i++;
             }
-            FormatedWeek = splitWeek;
         }
 
-        public string[] GetFormatedWeek()
+        public List<DayAndDate> GetFormatedWeek()
         {
             return FormatedWeek;
         }
         
+    }
+
+    public class DayAndDate
+    {
+        public DayAndDate() { }
+        public DayAndDate(string datum, string letter)
+        {
+            this.Datum = datum;
+            this.WeekdayLetter = letter;
+        }
+        public DayAndDate(string[] splitter)
+        {
+            this.Datum = splitter[0];
+            this.WeekdayLetter = splitter[1];
+        }
+        public string Datum { get; set; }
+        public string WeekdayLetter { get; set; }
     }
 }

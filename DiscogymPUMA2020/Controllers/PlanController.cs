@@ -17,19 +17,21 @@ namespace DiscogymPUMA2020.Controllers
         private readonly IPlanRepo _planRepo;
         private readonly IWorkoutRepo _workoutRepo;
         private readonly ILogger<PlanController> _logger;
-        private DateHelper _weekHelper;
+        private DateHelper _dateHelper;
 
         public PlanController(ILogger<PlanController> logger, ICategoryRepo categoryRepo)
         {
             _categoryRepo = categoryRepo;
             _logger = logger;
+            _dateHelper = new DateHelper();
         }
 
         public IActionResult Index()
         {
-            var category = _categoryRepo.GetCategories;
-            _weekHelper = new DateHelper();
-            return View(category);
+            //var category = _categoryRepo.GetCategories;
+            var week = _dateHelper.GetFormatedWeek();
+            ViewBag.Today = _dateHelper.Today;
+            return View(week);
         }
 
         public IActionResult Privacy()
