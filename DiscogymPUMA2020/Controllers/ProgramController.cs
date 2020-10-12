@@ -25,13 +25,10 @@ namespace DiscogymPUMA2020.Controllers
 
         // GET: ProgramController
         public IActionResult Index()
-        {            
-            var categories = _category.GetCategories;
-            var exercises = _exercise.GetExercises;
-
-            //var model = new Tuple< IEnumerable<Category>, IEnumerable<Exercise>> (categories, exercises);
-
-            return View(exercises);
+        {
+            var model = new Tuple<IEnumerable<Category>, IEnumerable<Exercise>>
+                (_category.GetCategories, _exercise.GetExercises);
+            return View(model);
         }
 
         /*
