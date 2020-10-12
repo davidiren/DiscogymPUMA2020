@@ -1,33 +1,33 @@
-﻿@model IEnumerable<DiscogymPUMA2020.Models.Class.Category>
+﻿@model IEnumerable<DiscogymPUMA2020.Models.Helpers.DayAndDate>
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="align-content-center">
+<div class="text-center">
     <div>
-        <span>Måndag</span>
-        <span>Tisdag</span>
-        <span>Onsdag</span>
-        <span>Torsdag</span>
-        <span>Fredag</span>
-        <span>Lördag</span>
-        <span>Söndag</span>
+        <span><a href="https://www.youtube.com/">Måndag</a></span>
+        <span><a href="">Tisdag</a></span>
+        <span><a href="">Onsdag</a></span>
+        <span><a href="">Torsdag</a></span>
+        <span><a href="">Fredag</a></span>
+        <span><a href="">Lördag</a></span>
+        <span><a href="">Söndag</a></span>
     </div>
 </div>
 
-<div class="text-center">
+<!--<div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>    
+</div>-->
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Datum)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.WeekdayLetter)
             </th>
         </tr>
     </thead>
@@ -36,16 +36,11 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.Datum)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.WeekdayLetter)
             </td>
-            <!-- <td>
-        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-    </td> -->
         </tr>
         }
     </tbody>
