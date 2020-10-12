@@ -1,19 +1,55 @@
 ﻿@model IEnumerable<DiscogymPUMA2020.Models.Helpers.DayAndDate>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Planner";
+    var today = ViewBag.Today;
 }
 
+<div class="border-bottom">
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <img src="~/Images/mirror-ball.png" width="30" height="30" class="d-inline-block alignt-top" loading="lazy" />
+        <h2 class="px-2">@ViewData["Title"]</h2>
+        <div class="navbar-nav ml-auto">
+            <button type="button" class="btn btn-light btn-sm">
+                <img src="~/Images/insert_invitation-24px.svg" width="30" height="30" class="d-inline-block" loading="lazy" />
+            </button>
+        </div>
+    </nav>
+</div>
 <div class="text-center">
     <div>
-        <span><a href="https://www.youtube.com/">Måndag</a></span>
-        <span><a href="">Tisdag</a></span>
-        <span><a href="">Onsdag</a></span>
-        <span><a href="">Torsdag</a></span>
-        <span><a href="">Fredag</a></span>
-        <span><a href="">Lördag</a></span>
-        <span><a href="">Söndag</a></span>
+        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">M</a>
+        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">T</a>
+        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">O</a>
+        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">T</a>
+        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">F</a>
+        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">L</a>
+        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">S</a>
     </div>
 </div>
+
+<!--<div class="text-center">
+    <div>
+        <table class="table-responsive-xl">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Datum)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Datum)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>-->
 
 <!--<div class="text-center">
     <h1 class="display-4">Welcome</h1>
