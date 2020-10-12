@@ -24,10 +24,25 @@ namespace DiscogymPUMA2020.Controllers
         }
 
         // GET: ProgramController
-        public IActionResult Index()
+        public IActionResult Index(string gym)
         {
-            var model = new Tuple<IEnumerable<Category>, IEnumerable<Exercise>>
-                (_category.GetCategories, _exercise.GetExercises);
+            ViewData["GymSort"] = gym == "gym" ? "" : "gym";
+            var workouts = _workout.GetWorkouts;
+            switch (gym)
+            {
+                case "gym":
+                    workouts = _workout.GetWorkoutsByGym(true);
+                    ViewData["WorkAt"] = "Gym";
+                    break;
+                default:
+                    workouts = _workout.GetWorkoutsByGym(false);
+                    ViewData["WorkAt"] = "Home";
+                    break;
+
+            }
+
+            var model = new Tuple<IEnumerable<Category>, IEnumerable<Workout>>
+                (_category.GetCategories, workouts);
             return View(model);
         }
 

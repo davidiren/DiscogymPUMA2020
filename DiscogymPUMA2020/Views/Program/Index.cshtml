@@ -1,5 +1,5 @@
 ﻿@using DiscogymPUMA2020.Models.Class;
-@model Tuple<IEnumerable<Category>, IEnumerable<Exercise>>
+@model Tuple<IEnumerable<Category>, IEnumerable<Workout>>
 @{
     ViewData["Title"] = "Program";
 }
@@ -9,9 +9,9 @@
         <img src="~/Images/mirror-ball.png" width="30" height="30" class="d-inline-block alignt-top" loading="lazy" />
         <h2 class="px-2">@ViewData["Title"]</h2>
         <div class="navbar-nav ml-auto">
-            <button type="button" class="btn btn-light btn-sm">
+            <a asp-action="Index" asp-route-sortOrder="@ViewData["GymSort"]">
                 <img src="~/Images/HemGymSwitch_GYM.png" width="30" height="30" class="d-inline-block" loading="lazy" />
-            </button>
+            </a>
         </div>
     </nav>
 </div>
@@ -33,9 +33,11 @@
     <h5>Pass</h5>
     @foreach (var item in Model.Item2)
     {
-        <div class="media bg-success">
+        <div class="media m-3 shadow border rounded" style="height: 100px; ">
+            <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
             <div class="media-body">
-                <h5>@item.Name</h5>
+                <h5 class="mt-1">@item.Name</h5>
+                @item.WorkoutTime | @ViewData["WorkAt"]
             </div>
         </div>
     }
