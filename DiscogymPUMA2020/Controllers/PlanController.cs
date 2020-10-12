@@ -26,7 +26,17 @@ namespace DiscogymPUMA2020.Controllers
             _dateHelper = new DateHelper();
         }
 
+        [HttpGet]
         public IActionResult Index()
+        {
+            //var category = _categoryRepo.GetCategories;
+            var week = _dateHelper.GetFormatedWeek();
+            ViewBag.Today = _dateHelper.Today;
+            return View(week);
+        }
+
+        [HttpPost]
+        public IActionResult Index(string s)
         {
             //var category = _categoryRepo.GetCategories;
             var week = _dateHelper.GetFormatedWeek();
