@@ -11,6 +11,7 @@ namespace DiscogymPUMA2020.Models.Interface
         IEnumerable<Plan> GetPlans { get; }
         IEnumerable<Plan> GetPlansByWorkout(int id);
         IEnumerable<Plan> GetPlansByUser(int id);
+        IEnumerable<Plan> GetPlansByDate(DateTime dateTime);
         Plan GetPlan(int id);
         void AddPlan(Plan plan);
         void RemovePlan(int? id);

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using DiscogymPUMA2020.Models;
 using DiscogymPUMA2020.Models.Interface;
 using DiscogymPUMA2020.Models.Helpers;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DiscogymPUMA2020.Controllers
 {
@@ -19,10 +20,11 @@ namespace DiscogymPUMA2020.Controllers
         private readonly ILogger<PlanController> _logger;
         private DateHelper _dateHelper;
 
-        public PlanController(ILogger<PlanController> logger, ICategoryRepo categoryRepo)
+        public PlanController(ILogger<PlanController> logger, ICategoryRepo categoryRepo, IPlanRepo planRepo)
         {
             _categoryRepo = categoryRepo;
             _logger = logger;
+            _planRepo = planRepo;
             _dateHelper = new DateHelper();
         }
 
@@ -30,18 +32,26 @@ namespace DiscogymPUMA2020.Controllers
         public IActionResult Index()
         {
             //var category = _categoryRepo.GetCategories;
-            var week = _dateHelper.GetFormatedWeek();
             ViewBag.Today = _dateHelper.Today;
-            return View(week);
+            PlannerHelper plannerHelper = new PlannerHelper()
+            {
+                Week = _dateHelper.GetFormatedWeek(),
+                Plans = _planRepo.GetPlansByDate(ViewBag.Today)
+            };
+
+            return View(plannerHelper);
         }
 
-        [HttpPost]
-        public IActionResult Index(string s)
+        [HttpGet]
+        public IActionResult PlannerSpecificDate(string day)
         {
-            //var category = _categoryRepo.GetCategories;
-            var week = _dateHelper.GetFormatedWeek();
-            ViewBag.Today = _dateHelper.Today;
-            return View(week);
+            ViewBag.Today = _dateHelper.GetSelectedDayFromDate(day);
+            PlannerHelper plannerHelper = new PlannerHelper()
+            {
+                Week = _dateHelper.GetFormatedWeek(),
+                Plans = _planRepo.GetPlansByDate(ViewBag.Today)
+            };
+            return View("Index", plannerHelper);
         }
 
         public IActionResult Privacy()

@@ -41,6 +41,12 @@ namespace DiscogymPUMA2020.Models.Repository
                 .Include(r => r.Workout);
         }
 
+        public IEnumerable<Plan> GetPlansByDate(DateTime dateTime)
+        {
+            return context.Plan.Where(r => r.Date.Equals(dateTime))
+                .Include(r => r.Workout);
+        }
+
         public void RemovePlan(int? id)
         {
             Plan plan = context.Plan.Find(id);

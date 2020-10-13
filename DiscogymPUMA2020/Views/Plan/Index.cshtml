@@ -1,7 +1,7 @@
-﻿@model IEnumerable<DiscogymPUMA2020.Models.Helpers.DayAndDate>
+﻿@model DiscogymPUMA2020.Models.Helpers.PlannerHelper
 @{
     ViewData["Title"] = "Planner";
-    var today = ViewBag.Today;
+    DateTime today = ViewBag.Today;
 }
 
 <div class="border-bottom">
@@ -15,69 +15,64 @@
         </div>
     </nav>
 </div>
+
 <div class="text-center">
-    <div>
-        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">M</a>
-        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">T</a>
-        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">O</a>
-        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">T</a>
-        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">F</a>
-        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">L</a>
-        <a class="card-link" asp-area="" asp-controller="Plan" asp-action="">S</a>
+    <div id="week">
+        @foreach (var item in Model.Week)
+        {
+            if (today.Day.ToString().Equals(item.Date))
+            {
+                <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date"><b>@item.LetterAndDate</b></a>
+            }
+            else
+            {
+                <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date">@item.LetterAndDate</a>
+            }
+        }
     </div>
 </div>
 
-<!--<div class="text-center">
-    <div>
-        <table class="table-responsive-xl">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Datum)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach(var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Datum)
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>-->
 
-<!--<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>    
-</div>-->
+<div class="jumbotron jumbotron-fluid bg-white">
+    <h5>Plan</h5>
+    @foreach (var item in Model.Plans)
+    {
+        <div class="media m-3 shadow border rounded" style="height: 100px; ">
+            <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
+            <div class="media-body">
+                <h5 class="mt-1">@item.Workout.Name</h5>
+                @item.Workout.WorkoutTime |  @((bool)item.Workout.Gym ? "Gym":"Home")
+            </div>
+        </div>
+    }
 
+</div>
+
+
+<!--
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Datum)
+                @Html.DisplayNameFor(model => model.Week.FirstOrDefault().Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WeekdayLetter)
+                @Html.DisplayNameFor(model => model.Week.FirstOrDefault().WeekdayLetter)
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (DiscogymPUMA2020.Models.Helpers.DayAndDate item in Model.Week)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Datum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeekdayLetter)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeekdayLetter)
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+    -->
