@@ -1,7 +1,7 @@
 ﻿@model DiscogymPUMA2020.Models.Helpers.PlannerHelper
 @{
     ViewData["Title"] = "Planner";
-    DateTime today = ViewBag.Today;
+    DateTime today = Model.SpecificDay;
 }
 
 <div class="border-bottom">
@@ -37,20 +37,22 @@
     <h5>Plan</h5>
     @foreach (var item in Model.Plans)
     {
+    <a class="mr-3 btn-link" asp-area="" asp-controller="Plan" asp-action="Index"><!--asp-action ska bytas till så man kan se planen-->
         <div class="media m-3 shadow border rounded" style="height: 100px; ">
             <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
             <div class="media-body">
                 <h5 class="mt-1">@item.Workout.Name</h5>
                 @item.Workout.WorkoutTime |  @((bool)item.Workout.Gym ? "Gym":"Home")
             </div>
+
         </div>
+    </a>
     }
 
     <div class="media m-3 shadow border rounded" style="height: 100px; justify-content:center;">
-        <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="">
+        <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="MakePlanFromWorkout" asp-route-day="@today">
             <img src="~/Images/add-24px.svg" class="align-self-center rounded-circle" width="100" height="100" />
         </a>
     </div>
 
 </div>
-

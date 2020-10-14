@@ -8,6 +8,7 @@ namespace DiscogymPUMA2020.Models.Helpers
 {
     public class PlannerHelper
     {
+        public DateTime SpecificDay { get; set; }
         public IEnumerable<DayAndDate> Week { get; set; }
         public IEnumerable<Plan> Plans { get; set; }
 

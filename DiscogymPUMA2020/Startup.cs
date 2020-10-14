@@ -35,6 +35,7 @@ namespace DiscogymPUMA2020
             services.AddTransient<IWorkoutExerciseRepo, WorkoutExerciseRepo>();
             services.AddTransient<IWorkoutRepo, WorkoutRepo>();
             services.AddControllersWithViews();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +57,8 @@ namespace DiscogymPUMA2020
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
