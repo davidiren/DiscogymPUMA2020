@@ -46,33 +46,11 @@
         </div>
     }
 
+    <div class="media m-3 shadow border rounded" style="height: 100px; justify-content:center;">
+        <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="">
+            <img src="~/Images/add-24px.svg" class="align-self-center rounded-circle" width="100" height="100" />
+        </a>
+    </div>
+
 </div>
 
-
-<!--
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Week.FirstOrDefault().Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Week.FirstOrDefault().WeekdayLetter)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (DiscogymPUMA2020.Models.Helpers.DayAndDate item in Model.Week)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.WeekdayLetter)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-    -->
