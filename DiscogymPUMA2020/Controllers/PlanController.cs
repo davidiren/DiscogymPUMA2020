@@ -97,7 +97,7 @@ namespace DiscogymPUMA2020.Controllers
                 WorkoutId = workoutId,
             };
 
-            //_planRepo.AddPlan(temp);
+            _planRepo.AddPlan(temp);
             
 
             return RedirectToAction("PlannerSpecificDate", new { day = DateTime.Parse(SelectedDay).Day.ToString() });
@@ -116,13 +116,12 @@ namespace DiscogymPUMA2020.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        //session variabel så man alltid vet vilken dag som inspekteras
         public string SelectedDay
         {
             get
             {
                 return (string)JsonConvert.DeserializeObject(HttpContext.Session.GetString("SelectedDay"));
-                //object value = HttpContext.Session.GetString("SelectedDay");
-                //return value == null ? "" : (string)value;
             }
             set
             {

@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="border-bottom">
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <img src="~/Images/mirror-ball.png" width="30" height="30" class="d-inline-block alignt-top" loading="lazy" />
+        <h2 class="px-2">@ViewData["Title"]</h2>
+        <div class="navbar-nav ml-auto">
+            <button type="button" class="btn btn-light btn-sm">
+                <img src="~/Images/settings-24px.svg" width="30" height="30" class="d-inline-block" loading="lazy" />
+            </button>
+        </div>
+    </nav>
+</div>
+
+<div class="jumbotron jumbotron-fluid bg-white">
+    <div class="media m-3 shadow border rounded" style="height: 175px; ">
+        <img src="~/Images/account_circle-24px.svg" class="mr-3 align-top rounded-circle" width="75" height="75" />
+        <div class="media-body container" style="padding:20px 10px 10px 10px">
+            <div class="row">
+                <div class="col">
+                    <h5><b>Weekly Goal</b></h5>
+                </div>
+                <div class="col">
+                    <h5><b>Weekly Clear</b></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Goal here</p>
+                </div>
+                <div class="col">
+                    <p>Cleared here</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h5><b>Avg. Mood</b></h5>
+                </div>
+                <div class="col">
+                    <h5><b>Favorite Category</b></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>mood here</p>
+                </div>
+                <div class="col">
+                    <p>category here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <h5>Saved Workouts</h5>
+    <a class="mr-3 btn-link" asp-area="" asp-controller="Plan" asp-action="Index">
+        <div class="media m-3 shadow border rounded " style="height: 100px; ">
+            <div class="media-body align-self-center text-center">
+                <h5 class="mt-1">Your Own Workouts</h5>
+            </div>
+
+        </div>
+    </a>
+    <a class="mr-3 btn-link" asp-area="" asp-controller="Plan" asp-action="Index">
+        <div class="media m-3 shadow border rounded" style="height: 100px; ">
+            <div class="media-body align-self-center text-center">
+                <h5 class="mt-1">Premade Workouts</h5>
+            </div>
+
+        </div>
+    </a>
+
+</div>

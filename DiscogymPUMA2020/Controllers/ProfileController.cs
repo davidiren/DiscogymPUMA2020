@@ -2,16 +2,47 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DiscogymPUMA2020.Models.Interface;
+using DiscogymPUMA2020.Models.Class;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace DiscogymPUMA2020.Controllers
 {
-    public class ProfilController : Controller
+    public class ProfileController : Controller
     {
+        private readonly ICategoryRepo _categoryRepo;
+        private readonly IFavoriteExerciseRepo _favoriteExerciseRepo;
+        private readonly IWorkoutRepo _workoutRepo;
+        private readonly ILogger<ProfileController> _logger;
+        public ProfileController(ILogger<ProfileController> logger, ICategoryRepo categoryRepo, IWorkoutRepo workoutRepo, IFavoriteExerciseRepo favoriteExerciseRepo)
+        {
+            _categoryRepo = categoryRepo;
+            _logger = logger;
+            _workoutRepo = workoutRepo;
+            _favoriteExerciseRepo = favoriteExerciseRepo;
+
+        }
+
         // GET: ProfilController
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult SavedWorkouts(bool mine)
+        {
+            if (mine)
+            {
+                ViewData["Title"] = "My Created Workouts";
+
+            }
+            else
+            {
+                ViewData["Title"] = "Saved Workouts";
+
+            }
             return View();
         }
 
