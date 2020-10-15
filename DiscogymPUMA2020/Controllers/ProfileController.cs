@@ -7,6 +7,7 @@ using DiscogymPUMA2020.Models.Class;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace DiscogymPUMA2020.Controllers
 {
@@ -33,17 +34,18 @@ namespace DiscogymPUMA2020.Controllers
 
         public ActionResult SavedWorkouts(bool mine)
         {
+            IEnumerable<Workout> workouts;
             if (mine)
             {
                 ViewData["Title"] = "My Created Workouts";
-
+                workouts = _workoutRepo.GetWorkoutsByUser(CurrentUser);
             }
             else
             {
                 ViewData["Title"] = "Saved Workouts";
-
+                workouts = _workoutRepo.GetWorkoutsByUser(CurrentUser);//ska bytas 
             }
-            return View();
+            return View(workouts);
         }
 
         // GET: ProfilController/Details/5
@@ -112,6 +114,19 @@ namespace DiscogymPUMA2020.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        //session variabel så man alltid vet inloggade användare, ska vara >> UserId <<
+        public int CurrentUser
+        {
+            get
+            {
+                return (int)JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser"));
+            }
+            set
+            {
+                HttpContext.Session.SetString("CurrentUser", JsonConvert.SerializeObject(value));
             }
         }
     }
