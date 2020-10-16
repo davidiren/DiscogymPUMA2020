@@ -1,0 +1,27 @@
+﻿@using DiscogymPUMA2020.Models.Class;
+@model IEnumerable<Workout>
+
+<div class="border-bottom">
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["GymSort"]">
+            <img src="~/Images/arrow_back-24px.svg" width="30" height="30" class="d-inline-block alignt-top" loading="lazy" />
+        </a>
+        <h2 class="px-2">@ViewData["Title"]</h2>
+    </nav>
+</div>
+
+<div class="jumbotron jumbotron-fluid bg-white">
+    <h5>Pass</h5>
+    @foreach (var item in Model)
+    {
+        <div class="media m-3 shadow border rounded" style="height: 100px; ">
+            <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
+            <div class="media-body">
+                <h5 class="mt-1">@item.Name</h5>
+                @item.WorkoutTime | 
+            </div>
+        </div>
+    }
+
+</div>
+

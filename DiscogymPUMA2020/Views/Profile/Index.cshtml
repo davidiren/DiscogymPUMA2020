@@ -56,7 +56,7 @@
 
     <br />
     <h5>Saved Workouts</h5>
-    <a class="mr-3 btn-link" asp-area="" asp-controller="Plan" asp-action="Index">
+    <a class="mr-3 btn-link" asp-area="" asp-controller="Profile" asp-action="SavedWorkouts" asp-route-mine="true">
         <div class="media m-3 shadow border rounded " style="height: 100px; ">
             <div class="media-body align-self-center text-center">
                 <h5 class="mt-1">Your Own Workouts</h5>
@@ -64,7 +64,7 @@
 
         </div>
     </a>
-    <a class="mr-3 btn-link" asp-area="" asp-controller="Plan" asp-action="Index">
+    <a class="mr-3 btn-link" asp-area="" asp-controller="Profile" asp-action="SavedWorkouts" asp-route-mine="false">
         <div class="media m-3 shadow border rounded" style="height: 100px; ">
             <div class="media-body align-self-center text-center">
                 <h5 class="mt-1">Premade Workouts</h5>

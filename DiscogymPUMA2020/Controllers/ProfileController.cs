@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace DiscogymPUMA2020.Controllers
 {
@@ -34,18 +35,22 @@ namespace DiscogymPUMA2020.Controllers
 
         public ActionResult SavedWorkouts(bool mine)
         {
-            IEnumerable<Workout> workouts;
+            //for testing purposes
+            CurrentUser = 1;
+
+            //IEnumerable<Workout> workouts;
             if (mine)
             {
                 ViewData["Title"] = "My Created Workouts";
-                workouts = _workoutRepo.GetWorkoutsByUser(CurrentUser);
+                var workouts = _workoutRepo.GetWorkoutsByUser(CurrentUser);
+                return View(workouts);
             }
             else
             {
                 ViewData["Title"] = "Saved Workouts";
-                workouts = _workoutRepo.GetWorkoutsByUser(CurrentUser);//ska bytas 
+                var workouts = _workoutRepo.GetWorkoutsByUser(CurrentUser);//ska bytas 
+                return View(workouts);
             }
-            return View(workouts);
         }
 
         // GET: ProfilController/Details/5
@@ -122,7 +127,8 @@ namespace DiscogymPUMA2020.Controllers
         {
             get
             {
-                return (int)JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser"));
+                //var temp = JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser"));
+                return Convert.ToInt32( JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser")));
             }
             set
             {
