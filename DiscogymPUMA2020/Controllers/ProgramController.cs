@@ -48,24 +48,26 @@ namespace DiscogymPUMA2020.Controllers
         }
 
         /*
-
         // GET: ProgramController/Details/5
         public ActionResult Details()
         {
             return View();
+        } */
+
+        //GET: ProgramController/Create
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
         }
 
-        // GET: ProgramController/Create
-        public IActionResult Create => View();
-
-        // POST: ProgramController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
+        //POST: ProgramController/Create
+        [HttpPost]
+        public IActionResult Create(Workout workout)
+        {
+            return View(workout);
+        }
+        /*
         // GET: ProgramController/Edit/5
         public ActionResult Edit()
         {

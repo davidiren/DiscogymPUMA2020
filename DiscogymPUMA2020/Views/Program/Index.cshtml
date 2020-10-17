@@ -4,50 +4,58 @@
     ViewData["Title"] = "Program";
 }
 
-<div class="border-bottom">
-    <nav class="navbar navbar-expand-md navbar-light ">
-        <img src="~/Images/mirror-ball.png" width="30" height="30" class="d-inline-block alignt-top" loading="lazy" />
-        <h2 class="px-2">@ViewData["Title"]</h2>
-        <div class="navbar-nav ml-auto">
 
-            <a type="submit" class="btn btn-light btn-sm" asp-action="Index" asp-route-gym="@ViewData["GymSort"]">
-                @if (!ViewData["GymSort"].Equals("gym"))
-                {
-                    <img src="~/Images/HemGymSwitch_HEM.png" width="30" height="30" class="d-inline-block" loading="lazy" />
-                }
-                else
-                {
-                    <img src="~/Images/HemGymSwitch_GYM.png" width="30" height="30" class="d-inline-block" loading="lazy" />
-                }
-            </a>
+    <div class="border-bottom">
+        <nav class="navbar navbar-expand-md navbar-light ">
+            <img src="~/Images/mirror-ball.png" width="30" height="30" class="d-inline-block alignt-top" loading="lazy" />
+            <h2 class="px-2">@ViewData["Title"]</h2>
+            <div class="navbar-nav ml-auto">
+
+                <a type="submit" class="btn btn-light btn-sm" asp-action="Index" asp-route-gym="@ViewData["GymSort"]">
+                    @if (!ViewData["GymSort"].Equals("gym"))
+                    {
+                        <img src="~/Images/HemGymSwitch_HEM.png" width="30" height="30" class="d-inline-block" loading="lazy" />
+                    }
+                    else
+                    {
+                        <img src="~/Images/HemGymSwitch_GYM.png" width="30" height="30" class="d-inline-block" loading="lazy" />
+                    }
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container border-0">
+        <div class="row align-items-start my-2">
+            @foreach (var item in Model.Item1)
+            {
+                <div class="col">
+                    <div class="card border-0" style="width: 70px; height: 81px;">
+                        <img src="~/Images/Categories/Cate.png" class="card-img rounded-circle bg-light" />
+                        <p class="card-subtitle align-text-bottom text-center">@item.Name</p>
+                    </div>
+                </div>
+            }
         </div>
-    </nav>
-</div>
-
-<div class="container border-0">
-    <div class="row align-items-start my-2">
-        @foreach (var item in Model.Item1)
+    </div>
+    <div class="jumbotron jumbotron-fluid bg-white">
+        <h5>Pass</h5>
+        @foreach (var item in Model.Item2)
         {
-            <div class="col">
-                <div class="card border-0" style="width: 70px; height: 81px;">
-                    <img src="~/Images/Categories/Cate.png" class="card-img rounded-circle bg-light" />
-                    <p class="card-subtitle align-text-bottom text-center">@item.Name</p>
+            <div class="media m-3 shadow border rounded" style="height: 100px; ">
+                <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
+                <div class="media-body">
+                    <h5 class="mt-1">@item.Name</h5>
+                    @item.WorkoutTime | @ViewData["WorkAt"]
                 </div>
             </div>
         }
-    </div>
-</div>
-<div class="jumbotron jumbotron-fluid bg-white">
-    <h5>Pass</h5>
-    @foreach (var item in Model.Item2)
-    {
-        <div class="media m-3 shadow border rounded" style="height: 100px; ">
-            <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
-            <div class="media-body">
-                <h5 class="mt-1">@item.Name</h5>
-                @item.WorkoutTime | @ViewData["WorkAt"]
-            </div>
-        </div>
-    }
 
-</div>
+    </div>
+
+
+    <div class="d-flex mb-auto align-end align-bottom">
+        <a type="button" class="btn rounded-circle ml-auto" style="width: 40px; height: 40px;" asp-action="Create">
+            <img src="~/Images/Group 36.png" class="position-fixed" />
+        </a>
+    </div>
