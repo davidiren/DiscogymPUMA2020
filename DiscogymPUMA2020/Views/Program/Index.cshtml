@@ -9,8 +9,16 @@
         <img src="~/Images/mirror-ball.png" width="30" height="30" class="d-inline-block alignt-top" loading="lazy" />
         <h2 class="px-2">@ViewData["Title"]</h2>
         <div class="navbar-nav ml-auto">
-            <a asp-action="Index" asp-route-sortOrder="@ViewData["GymSort"]">
-                <img src="~/Images/HemGymSwitch_GYM.png" width="30" height="30" class="d-inline-block" loading="lazy" />
+
+            <a type="submit" class="btn btn-light btn-sm" asp-action="Index" asp-route-gym="@ViewData["GymSort"]">
+                @if (!ViewData["GymSort"].Equals("gym"))
+                {
+                    <img src="~/Images/HemGymSwitch_HEM.png" width="30" height="30" class="d-inline-block" loading="lazy" />
+                }
+                else
+                {
+                    <img src="~/Images/HemGymSwitch_GYM.png" width="30" height="30" class="d-inline-block" loading="lazy" />
+                }
             </a>
         </div>
     </nav>

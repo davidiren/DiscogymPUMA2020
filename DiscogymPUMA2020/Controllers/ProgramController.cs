@@ -26,7 +26,8 @@ namespace DiscogymPUMA2020.Controllers
         // GET: ProgramController
         public IActionResult Index(string gym)
         {
-            ViewData["GymSort"] = gym == "gym" ? "" : "gym";
+
+            ViewData["GymSort"] = String.IsNullOrEmpty(gym)? "gym" : "";
             var workouts = _workout.GetWorkouts;
             switch (gym)
             {
