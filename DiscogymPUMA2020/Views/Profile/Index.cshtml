@@ -8,9 +8,11 @@
         <img src="~/Images/mirror-ball.png" width="30" height="30" class="d-inline-block alignt-top" loading="lazy" />
         <h2 class="px-2">@ViewData["Title"]</h2>
         <div class="navbar-nav ml-auto">
-            <button type="button" class="btn btn-light btn-sm">
-                <img src="~/Images/settings-24px.svg" width="30" height="30" class="d-inline-block" loading="lazy" />
-            </button>
+            <a asp-area="" asp-controller="Profile" asp-action="Settings">
+                <button type="button" class="btn btn-light btn-sm">
+                    <img src="~/Images/settings-24px.svg" width="30" height="30" class="d-inline-block" loading="lazy" />
+                </button>
+            </a>
         </div>
     </nav>
 </div>

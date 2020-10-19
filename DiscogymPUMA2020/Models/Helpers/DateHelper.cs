@@ -41,10 +41,6 @@ namespace DiscogymPUMA2020.Models.Helpers
             //Notera att denna inte hanterar åäö, men ska endast använda första bokstaven i orden så det lär vara okej
             FullWeek = string.Join("," /*+ Environment.NewLine*/, Enumerable.Range(0, 7).Select(i => StartOfWeek.AddDays(i).ToString("dd-dddd"))); 
 
-            //testing
-            //Console.WriteLine("Today: {0}", Today);
-            //Console.WriteLine("start of week: {0}", StartOfWeek);
-            //Console.WriteLine("FullWeek: {0}", FullWeek);
             MakeProperWeekFormat();
             
         }

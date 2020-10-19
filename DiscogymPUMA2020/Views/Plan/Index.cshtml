@@ -1,8 +1,21 @@
 ﻿@model DiscogymPUMA2020.Models.Helpers.PlannerHelper
 @{
-    ViewData["Title"] = "Planner";
     DateTime today = Model.SpecificDay;
+    int currentUser = (int)ViewData["User"];
+
+    if (currentUser != 0)
+    {
+        ViewData["Title"] = "Planner";
+    }
+    else
+    {
+        ViewData["Title"] = "Login";
+    }
 }
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <div class="border-bottom">
     <nav class="navbar navbar-expand-md navbar-light ">
@@ -16,43 +29,91 @@
     </nav>
 </div>
 
-<div class="text-center">
-    <div id="week">
-        @foreach (var item in Model.Week)
-        {
-            if (today.Day.ToString().Equals(item.Date))
+@if (currentUser != 0)
+{
+
+
+    <div class="text-center">
+        <div id="week">
+            @foreach (var item in Model.Week)
             {
-                <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date"><b>@item.LetterAndDate</b></a>
+                if (today.Day.ToString().Equals(item.Date))
+                {
+                    <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date"><b>@item.LetterAndDate</b></a>
+                }
+                else
+                {
+                    <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date">@item.LetterAndDate</a>
+                }
             }
-            else
-            {
-                <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date">@item.LetterAndDate</a>
-            }
-        }
-    </div>
-</div>
-
-
-<div class="jumbotron jumbotron-fluid bg-white">
-    <h5>Plan</h5>
-    @foreach (var item in Model.Plans)
-    {
-    <a class="mr-3 btn-link" asp-area="" asp-controller="Plan" asp-action="Index"><!--asp-action ska bytas till så man kan se planen-->
-        <div class="media m-3 shadow border rounded" style="height: 100px; ">
-            <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
-            <div class="media-body">
-                <h5 class="mt-1">@item.Workout.Name</h5>
-                @item.Workout.WorkoutTime |  @((bool)item.Workout.Gym ? "Gym":"Home")
-            </div>
-
         </div>
-    </a>
-    }
-
-    <div class="media m-3 shadow border rounded" style="height: 100px; justify-content:center;">
-        <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="MakePlanFromWorkout" asp-route-day="@today">
-            <img src="~/Images/add-24px.svg" class="align-self-center rounded-circle" width="100" height="100" />
-        </a>
     </div>
 
-</div>
+
+    <div class="jumbotron jumbotron-fluid bg-white">
+        <h5>Plan</h5>
+        @foreach (var item in Model.Plans)
+        {
+            <a class="mr-3 btn-link" asp-area="" asp-controller="Plan" asp-action="Index">
+                <!--asp-action ska bytas till så man kan se planen-->
+                <div class="media m-3 shadow border rounded" style="height: 100px; ">
+                    <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
+                    <div class="media-body">
+                        <h5 class="mt-1">@item.Workout.Name</h5>
+                        @item.Workout.WorkoutTime |  @((bool)item.Workout.Gym ? "Gym":"Home")
+                    </div>
+
+                </div>
+            </a>
+        }
+
+        <div class="media m-3 shadow border rounded" style="height: 100px; justify-content:center;">
+            <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="MakePlanFromWorkout" asp-route-day="@today">
+                <img src="~/Images/add-24px.svg" class="align-self-center rounded-circle" width="100" height="100" />
+            </a>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <div class="brand_logo_container">
+                        <img src="~/Images/mirror-ball.png" class="brand_logo" alt="Logo" style="height: 150px; width: 150px; border: 10px solid white;">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center form_container">
+                    <form asp-action="Index">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="control-label">Username</label>
+                            <input asp-for="User.UserName" class="form-control" required/>
+                            <span asp-validation-for="User.UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <input asp-for="User.Password" type="password" class="form-control" required/>
+                            <span asp-validation-for="User.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Login" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+                @ViewBag.Error
+
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center links">
+                        Don't have an account? <a href="#" class="ml-2">Sign Up</a>
+                    </div>
+                    <div class="d-flex justify-content-center links">
+                        <a href="#">Forgot your password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

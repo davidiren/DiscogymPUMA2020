@@ -16,7 +16,7 @@ namespace DiscogymPUMA2020.Models.Class
         }
 
         public int Id { get; set; }
-        public byte Pswd { get; set; }
+        public string Pswd { get; set; }
         public string Name { get; set; }
         [ForeignKey("ExerciseGoal")]
         public int ExerciseGoalId { get; set; }

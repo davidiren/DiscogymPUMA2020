@@ -8,5 +8,7 @@ namespace DiscogymPUMA2020.Models.Interface
 {
     public interface IUserRepo
     {
+        public User GetUser(int id);
+        public User GetUserByName(string name);
     }
 }

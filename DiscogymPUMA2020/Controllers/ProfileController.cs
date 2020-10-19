@@ -17,12 +17,14 @@ namespace DiscogymPUMA2020.Controllers
         private readonly ICategoryRepo _categoryRepo;
         private readonly IFavoriteExerciseRepo _favoriteExerciseRepo;
         private readonly IWorkoutRepo _workoutRepo;
+        private readonly IUserRepo _userRepo;
         private readonly ILogger<ProfileController> _logger;
-        public ProfileController(ILogger<ProfileController> logger, ICategoryRepo categoryRepo, IWorkoutRepo workoutRepo, IFavoriteExerciseRepo favoriteExerciseRepo)
+        public ProfileController(ILogger<ProfileController> logger, ICategoryRepo categoryRepo, IWorkoutRepo workoutRepo, IFavoriteExerciseRepo favoriteExerciseRepo, IUserRepo userRepo)
         {
             _categoryRepo = categoryRepo;
             _logger = logger;
             _workoutRepo = workoutRepo;
+            _userRepo = userRepo;
             _favoriteExerciseRepo = favoriteExerciseRepo;
 
         }
@@ -30,14 +32,16 @@ namespace DiscogymPUMA2020.Controllers
         // GET: ProfilController
         public ActionResult Index()
         {
+            if (CurrentUser == 0)
+            {
+                return RedirectToAction("Index", "Plan");
+            }
+
             return View();
         }
 
         public ActionResult SavedWorkouts(bool mine)
         {
-            //for testing purposes
-            CurrentUser = 1;
-
             //IEnumerable<Workout> workouts;
             if (mine)
             {
@@ -51,6 +55,18 @@ namespace DiscogymPUMA2020.Controllers
                 var workouts = _workoutRepo.GetWorkoutsByUser(CurrentUser);//ska bytas 
                 return View(workouts);
             }
+        }
+
+        public IActionResult Settings()
+        {
+            var user = _userRepo.GetUser(CurrentUser);
+            return View(user);
+        }
+
+        public IActionResult Logout()
+        {
+            CurrentUser = 0; //använder 0 som utloggat läge
+            return RedirectToAction("Index", "Plan");
         }
 
         // GET: ProfilController/Details/5
@@ -127,8 +143,10 @@ namespace DiscogymPUMA2020.Controllers
         {
             get
             {
-                //var temp = JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser"));
-                return Convert.ToInt32( JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser")));
+                if (HttpContext.Session.GetString("CurrentUser") == null)
+                    return 0;
+
+                return Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser")));
             }
             set
             {

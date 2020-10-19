@@ -20,15 +20,17 @@ namespace DiscogymPUMA2020.Controllers
         private readonly ICategoryRepo _categoryRepo;
         private readonly IPlanRepo _planRepo;
         private readonly IWorkoutRepo _workoutRepo;
+        private readonly IUserRepo _userRepo;
         private readonly ILogger<PlanController> _logger;
         private DateHelper _dateHelper;
 
-        public PlanController(ILogger<PlanController> logger, ICategoryRepo categoryRepo, IPlanRepo planRepo, IWorkoutRepo workoutRepo)
+        public PlanController(ILogger<PlanController> logger, ICategoryRepo categoryRepo, IPlanRepo planRepo, IWorkoutRepo workoutRepo, IUserRepo userRepo)
         {
             _categoryRepo = categoryRepo;
             _logger = logger;
             _planRepo = planRepo;
             _workoutRepo = workoutRepo;
+            _userRepo = userRepo;
             _dateHelper = new DateHelper();
             
         }
@@ -36,8 +38,10 @@ namespace DiscogymPUMA2020.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            //var category = _categoryRepo.GetCategories;
-            //ViewBag.Today = _dateHelper.Today;
+
+            //inloggad som användare 1 vid start'
+            //CurrentUser = 1;
+            
             var today = _dateHelper.Today;
             PlannerHelper plannerHelper = new PlannerHelper()
             {
@@ -45,6 +49,43 @@ namespace DiscogymPUMA2020.Controllers
                 Week = _dateHelper.GetFormatedWeek(),
                 Plans = _planRepo.GetPlansByDate(today)
             };
+
+            ViewData["User"] = CurrentUser;
+
+            return View(plannerHelper);
+        }
+
+        [HttpPost]
+        public IActionResult Index(LoginUser user)
+        {
+            User dbuser = _userRepo.GetUserByName(user.UserName);
+
+            if(dbuser == null)
+            {
+                ViewBag.Error = "Wrong Username or Password";
+                return View();
+            }
+
+            if (dbuser.Pswd.Equals(user.Password))
+            {
+                CurrentUser = dbuser.Id;
+                ViewBag.Error = "";
+            }
+            else
+            {
+                ViewBag.Error = "Wrong Username or Password";
+                return View();
+            }
+
+            var today = _dateHelper.Today;
+            PlannerHelper plannerHelper = new PlannerHelper()
+            {
+                SpecificDay = today,
+                Week = _dateHelper.GetFormatedWeek(),
+                Plans = _planRepo.GetPlansByDate(today)
+            };
+
+            ViewData["User"] = CurrentUser;
 
             return View(plannerHelper);
         }
@@ -61,6 +102,9 @@ namespace DiscogymPUMA2020.Controllers
                 Week = _dateHelper.GetFormatedWeek(),
                 Plans = _planRepo.GetPlansByDate(today)
             };
+
+            ViewData["User"] = CurrentUser;
+
             return View("Index", plannerHelper);
         }
 
@@ -135,8 +179,14 @@ namespace DiscogymPUMA2020.Controllers
         {
             get
             {
-                //var temp = JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser"));
+                if (HttpContext.Session.GetString("CurrentUser") == null)
+                    return 0;
+
                 return Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser")));
+            }
+            set
+            {
+                HttpContext.Session.SetString("CurrentUser", JsonConvert.SerializeObject(value));
             }
         }
     }

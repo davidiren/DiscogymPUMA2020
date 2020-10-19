@@ -11,14 +11,14 @@
 </div>
 
 <div class="jumbotron jumbotron-fluid bg-white">
-    <h5>Pass</h5>
+    <h5>Workouts</h5>
     @foreach (var item in Model)
     {
         <div class="media m-3 shadow border rounded" style="height: 100px; ">
             <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
             <div class="media-body">
                 <h5 class="mt-1">@item.Name</h5>
-                @item.WorkoutTime | 
+                @item.WorkoutTime min | 
             </div>
         </div>
     }
