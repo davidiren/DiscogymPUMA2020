@@ -61,9 +61,12 @@ namespace DiscogymPUMA2020.Models.Helpers
 
             foreach (string s in week1)
             {
-                if (s.Contains(date))
+                string temp = s.Substring(8, 2);
+
+                if (temp.Contains(date))
                 {
                     SelectedDay = DateTime.Parse(s).Date;
+                    break;
                 }
             }
 
