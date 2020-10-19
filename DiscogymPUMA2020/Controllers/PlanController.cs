@@ -30,6 +30,7 @@ namespace DiscogymPUMA2020.Controllers
             _planRepo = planRepo;
             _workoutRepo = workoutRepo;
             _dateHelper = new DateHelper();
+            
         }
 
         [HttpGet]
@@ -98,7 +99,8 @@ namespace DiscogymPUMA2020.Controllers
             };
 
             _planRepo.AddPlan(temp);
-            
+
+            System.Threading.Thread.Sleep(500);
 
             return RedirectToAction("PlannerSpecificDate", new { day = DateTime.Parse(SelectedDay).Day.ToString() });
 
@@ -126,6 +128,15 @@ namespace DiscogymPUMA2020.Controllers
             set
             {
                 HttpContext.Session.SetString("SelectedDay", JsonConvert.SerializeObject(value));
+            }
+        }
+
+        public int CurrentUser
+        {
+            get
+            {
+                //var temp = JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser"));
+                return Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser")));
             }
         }
     }
