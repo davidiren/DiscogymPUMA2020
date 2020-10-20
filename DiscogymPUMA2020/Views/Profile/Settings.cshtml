@@ -2,9 +2,100 @@
 @{
     ViewData["Title"] = "Settings";
 }
+<div class="border-bottom">
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["GymSort"]">
+            <img src="~/Images/arrow_back-24px.svg" width="30" height="30" class="d-inline-block align-top" loading="lazy" />
+        </a>
+        <div class="float-left">
+            <h2 class="px-2">@ViewData["Title"]</h2>
+        </div>
+    </nav>
+</div>
 
-<section title="Konto">
-    <p>Username: <span>@Model.Name</span></p>
-</section>
+<div class="container" id="account">
+    <div class="row border-bottom">
+        <h2><b>Account</b></h2>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+            <p class="text-left">Username</p>
+        </div>
+        <div class="col">
+            <p class="text-right">@Model.Name</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="text-left">Password</p>
+        </div>
+        <div class="col">
+            <p class="text-right">********</p>
+        </div>
+    </div>
+</div>
 
-<a asp-action="Logout"><p>Logout</p></a>
+<div class="container" id="help">
+    <div class="row border-bottom">
+        <h2><b>Help</b></h2>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+            <p class="text-left">Getting Started</p>
+        </div>
+        <div class="col">
+            <img class="float-right" src="~/Images/keyboard_arrow_right-24px.svg" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="text-left">Contact</p>
+        </div>
+        <div class="col">
+            <img class="float-right" src="~/Images/keyboard_arrow_right-24px.svg" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="text-left">FAQ</p>
+        </div>
+        <div class="col">
+            <img class="float-right" src="~/Images/keyboard_arrow_right-24px.svg" />
+        </div>
+    </div>
+</div>
+
+<div class="container" id="legal">
+    <div class="row border-bottom">
+        <h2><b>Legal</b></h2>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col">
+            <p class="text-left">Terms and Conditions</p>
+        </div>
+        <div class="col">
+            <img class="float-right" src="~/Images/keyboard_arrow_right-24px.svg" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="text-left">Privacy</p>
+        </div>
+        <div class="col">
+            <img class="float-right" src="~/Images/keyboard_arrow_right-24px.svg" />
+        </div>
+    </div>
+    <div class="row border-bottom">
+        <div class="col">
+            <p class="text-left">About</p>
+        </div>
+        <div class="col">
+            <img class="float-right" src="~/Images/keyboard_arrow_right-24px.svg" />
+        </div>
+    </div>
+</div>
+<br />
+<p><a asp-action="Logout">Logout</a></p>

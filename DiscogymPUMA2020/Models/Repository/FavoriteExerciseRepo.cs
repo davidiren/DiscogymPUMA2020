@@ -33,6 +33,13 @@ namespace DiscogymPUMA2020.Models.Repository
             return context.FavoriteExercise.Where(r => r.WorkoutId == id).Include(r => r.Workout);
         }
 
+        public IEnumerable<FavoriteExercise> GetSavedWorkoutsByUser(int id)
+        {
+            return context.FavoriteExercise.Where(r => r.UserId == id)
+                .Include(r => r.Workout);
+
+        }
+
         public void RemoveFavorite(int? id)
         {
             FavoriteExercise favoriteExercise = context.FavoriteExercise.Find(id);

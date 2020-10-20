@@ -19,7 +19,8 @@ namespace DiscogymPUMA2020.Controllers
         private readonly IWorkoutRepo _workoutRepo;
         private readonly IUserRepo _userRepo;
         private readonly ILogger<ProfileController> _logger;
-        public ProfileController(ILogger<ProfileController> logger, ICategoryRepo categoryRepo, IWorkoutRepo workoutRepo, IFavoriteExerciseRepo favoriteExerciseRepo, IUserRepo userRepo)
+        public ProfileController(ILogger<ProfileController> logger, ICategoryRepo categoryRepo,
+            IWorkoutRepo workoutRepo, IFavoriteExerciseRepo favoriteExerciseRepo, IUserRepo userRepo)
         {
             _categoryRepo = categoryRepo;
             _logger = logger;
@@ -42,7 +43,6 @@ namespace DiscogymPUMA2020.Controllers
 
         public ActionResult SavedWorkouts(bool mine)
         {
-            //IEnumerable<Workout> workouts;
             if (mine)
             {
                 ViewData["Title"] = "My Created Workouts";
@@ -52,7 +52,12 @@ namespace DiscogymPUMA2020.Controllers
             else
             {
                 ViewData["Title"] = "Saved Workouts";
-                var workouts = _workoutRepo.GetWorkoutsByUser(CurrentUser);//ska bytas 
+                var savedWorkouts = _favoriteExerciseRepo.GetSavedWorkoutsByUser(CurrentUser);
+                List<Workout> workouts = new List<Workout>();
+                foreach(FavoriteExercise fe in savedWorkouts)
+                {
+                    workouts.Add(fe.Workout);
+                }
                 return View(workouts);
             }
         }
