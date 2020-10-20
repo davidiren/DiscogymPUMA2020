@@ -18,13 +18,16 @@ namespace DiscogymPUMA2020.Controllers
         private readonly IFavoriteExerciseRepo _favoriteExerciseRepo;
         private readonly IWorkoutRepo _workoutRepo;
         private readonly IUserRepo _userRepo;
+        private readonly ILogRepo _logRepo;
         private readonly ILogger<ProfileController> _logger;
-        public ProfileController(ILogger<ProfileController> logger, ICategoryRepo categoryRepo, IWorkoutRepo workoutRepo, IFavoriteExerciseRepo favoriteExerciseRepo, IUserRepo userRepo)
+        public ProfileController(ILogger<ProfileController> logger, ICategoryRepo categoryRepo,
+            IWorkoutRepo workoutRepo, IFavoriteExerciseRepo favoriteExerciseRepo, IUserRepo userRepo, ILogRepo logRepo)
         {
             _categoryRepo = categoryRepo;
             _logger = logger;
             _workoutRepo = workoutRepo;
             _userRepo = userRepo;
+            _logRepo = logRepo;
             _favoriteExerciseRepo = favoriteExerciseRepo;
 
         }
@@ -42,7 +45,6 @@ namespace DiscogymPUMA2020.Controllers
 
         public ActionResult SavedWorkouts(bool mine)
         {
-            //IEnumerable<Workout> workouts;
             if (mine)
             {
                 ViewData["Title"] = "My Created Workouts";
@@ -52,7 +54,12 @@ namespace DiscogymPUMA2020.Controllers
             else
             {
                 ViewData["Title"] = "Saved Workouts";
-                var workouts = _workoutRepo.GetWorkoutsByUser(CurrentUser);//ska bytas 
+                var savedWorkouts = _favoriteExerciseRepo.GetSavedWorkoutsByUser(CurrentUser);
+                List<Workout> workouts = new List<Workout>();
+                foreach(FavoriteExercise fe in savedWorkouts)
+                {
+                    workouts.Add(fe.Workout);
+                }
                 return View(workouts);
             }
         }
@@ -67,6 +74,12 @@ namespace DiscogymPUMA2020.Controllers
         {
             CurrentUser = 0; //använder 0 som utloggat läge
             return RedirectToAction("Index", "Plan");
+        }
+
+        public IActionResult History()
+        {
+            var temp = _logRepo.GetLogsByUser(CurrentUser);
+            return View(temp);
         }
 
         // GET: ProfilController/Details/5

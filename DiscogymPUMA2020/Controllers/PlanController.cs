@@ -59,11 +59,19 @@ namespace DiscogymPUMA2020.Controllers
         public IActionResult Index(LoginUser user)
         {
             User dbuser = _userRepo.GetUserByName(user.UserName);
+            var today = _dateHelper.Today;
+            ViewData["User"] = CurrentUser;
+            PlannerHelper plannerHelper = new PlannerHelper()
+            {
+                SpecificDay = today,
+                Week = _dateHelper.GetFormatedWeek(),
+                Plans = _planRepo.GetPlansByDate(today)
+            };
 
             if(dbuser == null)
             {
                 ViewBag.Error = "Wrong Username or Password";
-                return View();
+                return View(plannerHelper);
             }
 
             if (dbuser.Pswd.Equals(user.Password))
@@ -74,17 +82,8 @@ namespace DiscogymPUMA2020.Controllers
             else
             {
                 ViewBag.Error = "Wrong Username or Password";
-                return View();
+                return View(plannerHelper);
             }
-
-            var today = _dateHelper.Today;
-            PlannerHelper plannerHelper = new PlannerHelper()
-            {
-                SpecificDay = today,
-                Week = _dateHelper.GetFormatedWeek(),
-                Plans = _planRepo.GetPlansByDate(today)
-            };
-
             ViewData["User"] = CurrentUser;
 
             return View(plannerHelper);
