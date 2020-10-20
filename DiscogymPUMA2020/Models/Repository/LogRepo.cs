@@ -37,7 +37,9 @@ namespace DiscogymPUMA2020.Models.Repository
         public IEnumerable<Log> GetLogsByUser(int id)
         {
             return context.Log.Where(r => r.UserId == id)
-                .Include(r => r.User);
+                .Include(r => r.User)
+                .Include(r => r.Workout)
+                .Include(r => r.Mood);
         }
 
         public IEnumerable<Log> GetLogsByWorkout(int id)
