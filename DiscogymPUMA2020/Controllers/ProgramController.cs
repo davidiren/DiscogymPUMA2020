@@ -1,10 +1,14 @@
-﻿using DiscogymPUMA2020.Models.Class;
+﻿using DiscogymPUMA2020.Models;
+using DiscogymPUMA2020.Models.Class;
 using DiscogymPUMA2020.Models.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace DiscogymPUMA2020.Controllers
 {
@@ -14,6 +18,7 @@ namespace DiscogymPUMA2020.Controllers
         private readonly IWorkoutRepo _workout;
         private readonly IExerciseRepo _exercise;
         private readonly ICategoryRepo _category;
+        private CategoryViewModel categoryViewModel;
 
         public ProgramController(IWorkoutExerciseRepo workoutExercise, IWorkoutRepo workout, IExerciseRepo exercise, ICategoryRepo category)
         {
@@ -21,29 +26,80 @@ namespace DiscogymPUMA2020.Controllers
             _workout = workout;
             _exercise = exercise;
             _category = category;
+
+            //Create selectable categories
+            List<SelectListItem> categorySelectList = new List<SelectListItem>();
+            foreach (Category c in _category.GetCategories)
+            {
+                SelectListItem selectListItem = new SelectListItem()
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString(),
+                    Selected = c.Selected
+                };
+                categorySelectList.Add(selectListItem);
+            }
+            categoryViewModel = new CategoryViewModel(categorySelectList);
+
         }
 
         // GET: ProgramController
-        public IActionResult Index(string gym)
+        public IActionResult Index(string gym, string selectedCat)
         {
 
             ViewData["GymSort"] = String.IsNullOrEmpty(gym)? "gym" : "";
-            var workouts = _workout.GetWorkouts;
-            switch (gym)
+            var workouts = _workout.GetWorkouts; 
+
+            if (!String.IsNullOrEmpty(selectedCat))
             {
-                case "gym":
-                    workouts = _workout.GetWorkoutsByGym(true);
-                    ViewData["WorkAt"] = "Gym";
-                    break;
-                default:
-                    workouts = _workout.GetWorkoutsByGym(false);
-                    ViewData["WorkAt"] = "Home";
-                    break;
+                var category = categoryViewModel.Categories.Where(r => r.Value == selectedCat).First();
+                List<Workout> workouts1 = new List<Workout>();
+                if (categoryViewModel.SelectedCategories.Contains(selectedCat))
+                {
+                    categoryViewModel.SelectedCategories.Remove(selectedCat);                    
+                    category.Selected = false;
+                }
+                else
+                {
+                    categoryViewModel.SelectedCategories.Add(selectedCat);
+                    category.Selected = true;
+                }
 
+                foreach (string s in categoryViewModel.SelectedCategories)
+                {
+                    var w1 = _workoutExercise.GetWorkoutExercisesByCategory(IntegerType.FromString(s)).ToList();
+                    if(w1 != null)
+                    {
+                        
+                        foreach(WorkoutExercise we in w1)
+                        {
+                            var m =_workout.GetWorkout(we.WorkoutId);
+                            if (!workouts1.Contains(m)) { workouts1.Add(m); }
+                        }
+                        
+                    }
+                }
+
+                var model1 = new Tuple<CategoryViewModel, IEnumerable<Workout>>
+                (categoryViewModel, workouts1.AsEnumerable());
+
+                return View(model1);               
             }
+            else {
+                switch (gym)
+                {
+                    case "gym":
+                        workouts = _workout.GetWorkoutsByGym(true);
+                        break;
+                    default:
+                        workouts = _workout.GetWorkoutsByGym(false);
+                        break;
 
-            var model = new Tuple<IEnumerable<Category>, IEnumerable<Workout>>
-                (_category.GetCategories, workouts);
+                }
+            }
+            
+            var model = new Tuple<CategoryViewModel, IEnumerable<Workout>>
+                (categoryViewModel, workouts);
             return View(model);
         }
 

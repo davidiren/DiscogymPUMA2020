@@ -1,7 +1,9 @@
 ﻿@using DiscogymPUMA2020.Models.Class;
-@model Tuple<IEnumerable<Category>, IEnumerable<Workout>>
+@model Tuple<CategoryViewModel, IEnumerable<Workout>>
 @{
     ViewData["Title"] = "Program";
+    ViewBag.gym = "Gym";
+    ViewBag.home = "Home";
 }
 
 
@@ -27,14 +29,28 @@
 
     <div class="container border-0">
         <div class="row align-items-start my-2">
-            @foreach (var item in Model.Item1)
+            @foreach (var item in Model.Item1.Categories)
             {
-                <div class="col">
-                    <div class="card border-0" style="width: 70px; height: 81px;">
-                        <img src="~/Images/Categories/Cate.png" class="card-img rounded-circle bg-light" />
-                        <p class="card-subtitle align-text-bottom text-center">@item.Name</p>
-                    </div>
-                </div>
+            <div class="col">
+                <a type="button" class="btn rounded-circle" asp-action="Index" asp-route-selectedCat="@item.Value">
+                    @if (Model.Item1.SelectedCategories != null)
+                    {
+                        if (Model.Item1.SelectedCategories.Contains(item.Value))
+                        {
+                            <img src="~/Images/Selected.png" class="card-img" width="60" height="60" />
+                        }
+                        else
+                        {
+                            <img src="~/Images/Categories/Cate.png" class="card-img" width="60" height="60" />
+                        }
+                    }
+                    else
+                    {
+                        <img src="~/Images/Categories/Cate.png" class="card-img" width="60" height="60" />
+                    }
+                </a>
+                <p class="card-subtitle align-text-bottom text-center">@item.Text</p>
+            </div>
             }
         </div>
     </div>
@@ -46,7 +62,15 @@
                 <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
                 <div class="media-body">
                     <h5 class="mt-1">@item.Name</h5>
-                    @item.WorkoutTime | @ViewData["WorkAt"]
+                    @if(item.Gym == true)
+                    {
+                        <p>@item.WorkoutTime | @ViewBag.gym</p>
+                    }
+                    else
+                    {
+                        <p>@item.WorkoutTime | @ViewBag.home</p>
+                    }
+                    
                 </div>
             </div>
         }

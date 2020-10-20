@@ -33,6 +33,11 @@ namespace DiscogymPUMA2020.Models.Repository
             return context.Workout.Where(r => r.Gym == gym).Include(r => r.WorkoutExercises);
         }
 
+        public IEnumerable<Workout> GetWorkoutsById(int id)
+        {
+            return context.Workout.Where(r => r.Id == id).Include(r => r.WorkoutExercises);
+        }
+
         public IEnumerable<Workout> GetWorkoutsByUser(int id)
         {
             return context.Workout.Where(r => r.CreatedByUserId == id)
