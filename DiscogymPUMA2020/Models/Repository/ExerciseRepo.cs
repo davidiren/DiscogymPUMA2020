@@ -27,7 +27,7 @@ namespace DiscogymPUMA2020.Models.Repository
         public IEnumerable<Exercise> GetExercisesByCategory(int id)
         {
             return context.Exercise.Where(r => r.CategoryId == id)
-                .Include(r => r.Category);
+                .Include(r => r.Category).Include(r => r.ExerciseLevel);
         }
 
         public IEnumerable<Exercise> GetExercisesByLevel(int id)

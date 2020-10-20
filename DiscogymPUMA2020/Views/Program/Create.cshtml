@@ -1,47 +1,80 @@
 ﻿@model DiscogymPUMA2020.Models.Class.Workout
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create workout";
 }
+<div class="border-bottom">
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <a asp-action="Index">
+            <img src="~/Images/arrow_back-24px.svg" width="30" height="30" class="d-inline-block align-top" loading="lazy" />
+        </a>
+        <div class="float-left">
+            <h2 class="px-2">@ViewData["Title"]</h2>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a type="submit" value="Create" class="btn btn-light btn-sm" asp-action="Create">
+                <img src="~/Images/save.png" width="30" height="30" class="d-inline-block" loading="lazy" />
+            </a>
+        </div>
+    </nav>
+</div>
 
-<h1>Create</h1>
-
-<h4>Workout</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+<div class="jumbotron jumbotron-fluid bg-white">
+    <form>
+        <div class="row">
+            <div class="col">
+                <input asp-for="Name" class="form-control border-0" placeholder="Workout name">
             </div>
-            <div class="form-group">
-                <label asp-for="WorkoutTime" class="control-label"></label>
-                <input asp-for="WorkoutTime" class="form-control" />
-                <span asp-validation-for="WorkoutTime" class="text-danger"></span>
+            <div class="col">
+                <select asp-for="Gym" class="form-control border-0" asp-items="ViewBag.Gym" ></select>
             </div>
-            <div class="form-group">
-                <label asp-for="Gym" class="control-label"></label>
-                <input asp-for="Gym" class="form-control" />
-                <span asp-validation-for="Gym" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedByUserId" class="control-label"></label>
-                <select asp-for="CreatedByUserId" class ="form-control" asp-items="ViewBag.CreatedByUserId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+    </form>
+    <div class="media m-3 shadow border rounded" style="height: 100px; justify-content:center;">
+        <a class="btn rounded-circle my-auto" asp-controller="Program" asp-action="CreateWorkoutExercise">
+            <img src="~/Images/add-24px.svg" class="align-self-center" width="60" height="60" />
+        </a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WorkoutTime" class="control-label"></label>
+                    <input asp-for="WorkoutTime" class="form-control" />
+                    <span asp-validation-for="WorkoutTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Gym" class="control-label"></label>
+                    <input asp-for="Gym" class="form-control" />
+                    <span asp-validation-for="Gym" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CreatedByUserId" class="control-label"></label>
+                    <select asp-for="CreatedByUserId" class="form-control" asp-items="ViewBag.CreatedByUserId"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+
+

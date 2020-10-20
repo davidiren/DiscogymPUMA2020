@@ -1,9 +1,12 @@
 ﻿using DiscogymPUMA2020.Models;
 using DiscogymPUMA2020.Models.Class;
+using DiscogymPUMA2020.Models.Helpers;
 using DiscogymPUMA2020.Models.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualBasic.CompilerServices;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -114,6 +117,17 @@ namespace DiscogymPUMA2020.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            /* if (CurrentUser == 0)
+             {
+                 return RedirectToAction("Index", "Plan");
+             }*/
+
+            ViewData["Gym"] = new List<SelectListItem>()
+            {
+                new SelectListItem(){Text= "Gym", Value="1"},
+                new SelectListItem(){Text= "Home", Value= "0"}
+            };
+
             return View();
         }
 
@@ -122,6 +136,20 @@ namespace DiscogymPUMA2020.Controllers
         public IActionResult Create(Workout workout)
         {
             return View(workout);
+        }
+
+        public IActionResult CreateWorkoutExercise(string selectedCat)
+        {
+            var exercises = _exercise.GetExercises;
+            if (!String.IsNullOrEmpty(selectedCat))
+            {
+                categoryViewModel.SelectedCategories.Add(selectedCat);
+                exercises = _exercise.GetExercisesByCategory(IntegerType.FromString(selectedCat));
+            }
+            var model = new Tuple<CategoryViewModel, IEnumerable<Exercise>>
+                (categoryViewModel, exercises);
+
+            return View(model);
         }
         /*
         // GET: ProgramController/Edit/5
@@ -165,5 +193,19 @@ namespace DiscogymPUMA2020.Controllers
                 return View();
             }
         }*/
+        public int CurrentUser
+        {
+            get
+            {
+                if (HttpContext.Session.GetString("CurrentUser") == null)
+                    return 0;
+
+                return Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("CurrentUser")));
+            }
+            set
+            {
+                HttpContext.Session.SetString("CurrentUser", JsonConvert.SerializeObject(value));
+            }
+        }
     }
 }

@@ -1,0 +1,62 @@
+﻿@using DiscogymPUMA2020.Models.Class;
+@model Tuple<CategoryViewModel, IEnumerable<Exercise>>
+@{
+    ViewData["Title"] = "Exercises";
+}
+
+<div class="border-bottom">
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <a asp-action="Create">
+            <img src="~/Images/arrow_back-24px.svg" width="30" height="30" class="d-inline-block align-top" loading="lazy" />
+        </a>
+        <div class="float-left">
+            <h2 class="px-2">@ViewData["Title"]</h2>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a type="submit" class="btn btn-light btn-sm" asp-action="CreateWorkoutExercise" asp-route-selectedCat=""> All</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container border-0">
+    <div class="row align-items-start my-2">
+        @foreach (var item in Model.Item1.Categories)
+        {
+            <div class="col">
+                <a type="button" class="btn rounded-circle" asp-action="CreateWorkoutExercise" asp-route-selectedCat="@item.Value">
+                    @if (Model.Item1.SelectedCategories != null)
+                    {
+                        if (Model.Item1.SelectedCategories.Contains(item.Value))
+                        {
+                            <img src="~/Images/Selected.png" class="card-img" width="60" height="60" />
+                        }
+                        else
+                        {
+                            <img src="~/Images/Categories/Cate.png" class="card-img" width="60" height="60" />
+                        }
+                    }
+                    else
+                    {
+                        <img src="~/Images/Categories/Cate.png" class="card-img" width="60" height="60" />
+                    }
+                </a>
+                <p class="card-subtitle align-text-bottom text-center">@item.Text</p>
+            </div>
+        }
+    </div>
+</div>
+<div class="jumbotron jumbotron-fluid bg-white">
+    <h5>Exercises</h5>
+    @foreach (var item in Model.Item2)
+    {
+        <div class="media m-3 shadow border rounded" style="height: 100px; ">
+            <img src="~/Images/exercise.jpg" class="mr-3 rounded-left" width="100" height="100" />
+            <div class="media-body">
+                <h5 class="mt-1">@item.Name</h5>
+                <p>@item.Category.Name</p>
+
+            </div>
+        </div>
+    }
+
+</div>
