@@ -58,21 +58,23 @@
         <h5>Workout</h5>
         @foreach (var item in Model.Item2)
         {
-            <div class="media m-3 shadow border rounded" style="height: 100px; ">
-                <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
-                <div class="media-body">
-                    <h5 class="mt-1">@item.Name</h5>
-                    @if(item.Gym == true)
-                    {
-                        <p>@item.WorkoutTime | @ViewBag.gym</p>
-                    }
-                    else
-                    {
-                        <p>@item.WorkoutTime | @ViewBag.home</p>
-                    }
-                    
+            <a type="button" class="btn-block" asp-action="TrainingView" asp-route-id="@item.Id">
+                <div class="media m-3 shadow border rounded" style="height: 100px;">
+                    <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
+                    <div class="media-body">
+                        <h5 class="mt-1">@item.Name</h5>
+                        @if (item.Gym == true)
+                        {
+                            <p>@item.WorkoutTime | @ViewBag.gym</p>
+                        }
+                        else
+                        {
+                            <p>@item.WorkoutTime | @ViewBag.home</p>
+                        }
+
+                    </div>
                 </div>
-            </div>
+            </a>
         }
 
     </div>
