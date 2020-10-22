@@ -8,6 +8,7 @@ namespace DiscogymPUMA2020.Models.Interface
 {
     public interface IWorkoutExerciseRepo
     {
+        void AddWorkoutExercise(WorkoutExercise workoutExercise);
         IEnumerable<WorkoutExercise> GetWorkoutExercises { get; }
         IEnumerable<WorkoutExercise> GetWorkoutExercisesByWorkout(int id);
         IEnumerable<WorkoutExercise> GetWorkoutExercisesByExercise(int id);        

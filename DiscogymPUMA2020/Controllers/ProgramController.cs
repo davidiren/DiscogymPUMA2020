@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DiscogymPUMA2020.Controllers
 {
@@ -21,14 +22,16 @@ namespace DiscogymPUMA2020.Controllers
         private readonly IWorkoutRepo _workout;
         private readonly IExerciseRepo _exercise;
         private readonly ICategoryRepo _category;
+        private readonly IUserRepo _user;
         private CategoryViewModel categoryViewModel;
-
-        public ProgramController(IWorkoutExerciseRepo workoutExercise, IWorkoutRepo workout, IExerciseRepo exercise, ICategoryRepo category)
+        private List<Exercise> chosenExercise = new List<Exercise>();
+        public ProgramController(IWorkoutExerciseRepo workoutExercise, IWorkoutRepo workout, IExerciseRepo exercise, ICategoryRepo category, IUserRepo user)
         {
             _workoutExercise = workoutExercise;
             _workout = workout;
             _exercise = exercise;
             _category = category;
+            _user = user;
 
             //Create selectable categories
             List<SelectListItem> categorySelectList = new List<SelectListItem>();
@@ -115,19 +118,34 @@ namespace DiscogymPUMA2020.Controllers
 
         //GET: ProgramController/Create
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(string serializedModel)
         {
-            /* if (CurrentUser == 0)
-             {
+            if (CurrentUser == 0)
+            {
                  return RedirectToAction("Index", "Plan");
-             }*/
-
+            }
+            List<string> eList = new List<string>(); 
+            if (serializedModel != null)
+            {
+                List<string> exercises = JsonConvert.DeserializeObject<List<string>>(serializedModel);
+                foreach(string s in exercises)
+                {
+                    chosenExercise.Add(_exercise.GetExercise(int.Parse(s)));
+                    eList.Add(s);
+                }
+            }
+            
+            ViewData["Exercises"] = chosenExercise;
             ViewData["Gym"] = new List<SelectListItem>()
             {
-                new SelectListItem(){Text= "Gym", Value="1"},
-                new SelectListItem(){Text= "Home", Value= "0"}
+                new SelectListItem(){Text= "Gym", Value="true"},
+                new SelectListItem(){Text= "Home", Value= "false"}
             };
-
+            if(eList.Count > 0)
+            {
+                string st = JsonConvert.SerializeObject(eList);
+                HttpContext.Session.SetString("ChosenExercises", st);
+            }
             return View();
         }
 
@@ -135,9 +153,30 @@ namespace DiscogymPUMA2020.Controllers
         [HttpPost]
         public IActionResult Create(Workout workout)
         {
-            return View(workout);
+            var userId = _user.GetUser(CurrentUser).Id;
+            string exList = HttpContext.Session.GetString("ChosenExercises");
+            List<string> Exercises = JsonConvert.DeserializeObject<List<string>>(exList);
+            if (workout != null)
+            {
+                workout.CreatedByUserId = userId;
+                workout.WorkoutTime = 5;
+                _workout.AddWorkout(workout);                
+            }
+
+            WorkoutExercise newWorkoutExercise = new WorkoutExercise();
+            foreach (string s in Exercises)
+            {
+                newWorkoutExercise.ExerciseId = _exercise.GetExercise(int.Parse(s)).Id;
+                var w = _workout.GetWorkoutsByName(userId, workout.Name).ToList();
+                newWorkoutExercise.WorkoutId = w.First().Id;
+
+                _workoutExercise.AddWorkoutExercise(newWorkoutExercise);
+            }
+
+            return RedirectToAction("TrainingView");
         }
 
+        
         public IActionResult CreateWorkoutExercise(string selectedCat)
         {
             var exercises = _exercise.GetExercises;
@@ -146,11 +185,29 @@ namespace DiscogymPUMA2020.Controllers
                 categoryViewModel.SelectedCategories.Add(selectedCat);
                 exercises = _exercise.GetExercisesByCategory(IntegerType.FromString(selectedCat));
             }
-            var model = new Tuple<CategoryViewModel, IEnumerable<Exercise>>
-                (categoryViewModel, exercises);
-
+            /*var model = new Tuple<CategoryViewModel, IEnumerable<Exercise>>
+                (categoryViewModel, exercises);*/
+            var model = new SelectedExerciseViewModel();
+            model.CategoryView = categoryViewModel;
+            model.Exercises = exercises;
             return View(model);
         }
+
+        public IActionResult ChosenWorkoutExercise(List<string> selectedEx)
+        {
+            if (selectedEx is null)
+            {
+                return RedirectToAction("CreateWorkoutExercise");
+            }
+            return RedirectToAction("Create", "Program", new { serializedModel = JsonConvert.SerializeObject(selectedEx) });
+        } 
+
+        public IActionResult TrainingView(int id)
+        {
+            var workout = _workout.GetWorkout(id);
+            return View(workout);
+        }
+
         /*
         // GET: ProgramController/Edit/5
         public ActionResult Edit()

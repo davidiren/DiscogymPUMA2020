@@ -1,8 +1,15 @@
-﻿@model DiscogymPUMA2020.Models.Class.Workout
+﻿@using DiscogymPUMA2020.Models.Class;
+@model DiscogymPUMA2020.Models.Class.Workout
 
 @{
     ViewData["Title"] = "Create workout";
+    List<Exercise> exercises = (List<Exercise>) ViewData["Exercises"];
 }
+
+@using (Html.BeginForm("Create", "Program", FormMethod.Post))
+{
+
+    <input type="hidden" value="@exercises" name="Exercises"/>
 <div class="border-bottom">
     <nav class="navbar navbar-expand-md navbar-light ">
         <a asp-action="Index">
@@ -12,9 +19,9 @@
             <h2 class="px-2">@ViewData["Title"]</h2>
         </div>
         <div class="navbar-nav ml-auto">
-            <a type="submit" value="Create" class="btn btn-light btn-sm" asp-action="Create">
-                <img src="~/Images/save.png" width="30" height="30" class="d-inline-block" loading="lazy" />
-            </a>
+            <input type="submit" value="Save" class="btn btn-light btn-sm">
+            <!--   <img src="~/Images/save.png" width="30" height="30" class="d-inline-block" loading="lazy" />-->
+
         </div>
     </nav>
 </div>
@@ -26,55 +33,67 @@
                 <input asp-for="Name" class="form-control border-0" placeholder="Workout name">
             </div>
             <div class="col">
-                <select asp-for="Gym" class="form-control border-0" asp-items="ViewBag.Gym" ></select>
+                <select asp-for="Gym" class="form-control border-0" asp-items="ViewBag.Gym"></select>
             </div>
         </div>
     </form>
+
+    @foreach (var e in (List<Exercise>)ViewData["Exercises"])
+    {
+        <div class="media m-3 shadow border rounded" style="height: 100px; ">
+            <img src="~/Images/exercise.jpg" class="mr-3 rounded-left" width="100" height="100" />
+            <div class="media-body">
+                <h5 class="mt-1">@e.Name</h5>
+                <p>@e.Category.Name</p>
+            </div>
+        </div>
+    }
     <div class="media m-3 shadow border rounded" style="height: 100px; justify-content:center;">
         <a class="btn rounded-circle my-auto" asp-controller="Program" asp-action="CreateWorkoutExercise">
             <img src="~/Images/add-24px.svg" class="align-self-center" width="60" height="60" />
         </a>
     </div>
 </div>
+}
 
-
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="WorkoutTime" class="control-label"></label>
-                    <input asp-for="WorkoutTime" class="form-control" />
-                    <span asp-validation-for="WorkoutTime" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Gym" class="control-label"></label>
-                    <input asp-for="Gym" class="form-control" />
-                    <span asp-validation-for="Gym" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CreatedByUserId" class="control-label"></label>
-                    <select asp-for="CreatedByUserId" class="form-control" asp-items="ViewBag.CreatedByUserId"></select>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
+<!--        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkoutTime" class="control-label"></label>
+                        <input asp-for="WorkoutTime" class="form-control" />
+                        <span asp-validation-for="WorkoutTime" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Gym" class="control-label"></label>
+                        <input asp-for="Gym" class="form-control" />
+                        <span asp-validation-for="Gym" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CreatedByUserId" class="control-label"></label>
+                        <select asp-for="CreatedByUserId" class="form-control" asp-items="ViewBag.CreatedByUserId"></select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    -->
 
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 
 

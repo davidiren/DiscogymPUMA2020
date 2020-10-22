@@ -18,6 +18,8 @@ namespace DiscogymPUMA2020.Models.Class
         public int CategoryId { get; set; }
         [ForeignKey("ExerciseLevel")]
         public int LevelId { get; set; }
+        [NotMapped]
+        public bool IsSelected { get; set; }
         public int Sets { get; set; }
         public int Reps { get; set; }
         public string Video { get; set; }
