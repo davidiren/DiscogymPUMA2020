@@ -1,43 +1,49 @@
-﻿@model DiscogymPUMA2020.Models.Class.Workout
+﻿@using DiscogymPUMA2020.Models.Class; 
+@model DiscogymPUMA2020.Models.Class.Workout
 
 @{
-    ViewData["Title"] = "TrainingView";
+    ViewData["Title"] = Model.Name;
 }
 
-<h1>TrainingView</h1>
+<div class="border-bottom">
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <a asp-action="Index">
+            <img src="~/Images/arrow_back-24px.svg" width="30" height="30" class="d-inline-block align-top" loading="lazy" />
+        </a>
+        <div class="float-left">
+            <h2 class="px-2">@ViewData["Title"]</h2>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <!-- <a type="submit" class="btn btn-light btn-sm" asp-action="Index" asp-route-selectedCat=""> All</a> -->
+        </div>
+    </nav>
+</div>
 
-<div>
-    <h4>Workout</h4>
-    @Model.WorkoutExercises.Count
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WorkoutTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WorkoutTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gym)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gym)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-    </dl>
+<div class="my-3">
+    <h5>@ViewBag.Level | @Model.WorkoutTime min</h5>
+    
+    <div class="mt-3">
+        <ul class="list-group">
+            @foreach (var item in (IEnumerable<WorkoutExercise>) ViewBag.Exercises)
+            {
+                <li class="list-group-item">
+                    <div class=" d-flex justify-content-start">
+                        <div class="mr-2">
+                            <img src="~/Images/exercise.jpg" width="60" height="60" />
+                        </div>
+                        <div class="d-block">
+                            <p class="my-auto">@item.Exercise.Name</p>
+                            <p class="my-auto"> @item.Exercise.Sets sets | @item.Exercise.Reps reps</p>
+                        </div>
+                    </div>  
+                </li>
+            }
+
+        </ul>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="d-flex justify-content-center">
+    <a type="button" class="btn btn-primary font-weight-bold" style="width:150px;" asp-action="TrainingPlay" asp-route-id="@Model.Id" >Start</a>
 </div>
+

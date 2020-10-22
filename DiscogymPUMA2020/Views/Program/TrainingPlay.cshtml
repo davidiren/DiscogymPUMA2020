@@ -1,0 +1,30 @@
+﻿@using DiscogymPUMA2020.Models.Class;
+@{
+}
+
+<div class="border-bottom">
+    <nav class="navbar navbar-expand-md navbar-light ">
+        <a asp-action="TrainingView">
+            <img src="~/Images/arrow_back-24px.svg" width="30" height="30" class="d-inline-block align-top" loading="lazy" />
+        </a>
+        <div class="float-left">
+            <h2 class="px-2">@ViewBag.Name</h2>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <!-- <a type="submit" class="btn btn-light btn-sm" asp-action="Index" asp-route-selectedCat=""> All</a> -->
+        </div>
+    </nav>
+</div>
+@foreach (var item in (IEnumerable<WorkoutExercise>)ViewBag.Exercises)
+{
+<div class="embed-responsive embed-responsive-4by3">
+    <p> @item.Exercise.Video</p>
+    <!--<embed class="embed-responsive-item" src="@item.Exercise.Video" />-->
+
+</div>
+
+}
+
+
+
+
