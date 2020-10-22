@@ -20,16 +20,19 @@ namespace DiscogymPUMA2020.Controllers
         private readonly ICategoryRepo _categoryRepo;
         private readonly IPlanRepo _planRepo;
         private readonly IWorkoutRepo _workoutRepo;
+        private readonly IWorkoutExerciseRepo _workoutExerciseRepo;
         private readonly IUserRepo _userRepo;
         private readonly ILogger<PlanController> _logger;
         private DateHelper _dateHelper;
 
-        public PlanController(ILogger<PlanController> logger, ICategoryRepo categoryRepo, IPlanRepo planRepo, IWorkoutRepo workoutRepo, IUserRepo userRepo)
+        public PlanController(ILogger<PlanController> logger, ICategoryRepo categoryRepo,
+            IPlanRepo planRepo, IWorkoutRepo workoutRepo, IUserRepo userRepo, IWorkoutExerciseRepo workoutExerciseRepo)
         {
             _categoryRepo = categoryRepo;
             _logger = logger;
             _planRepo = planRepo;
             _workoutRepo = workoutRepo;
+            _workoutExerciseRepo = workoutExerciseRepo;
             _userRepo = userRepo;
             _dateHelper = new DateHelper();
             
@@ -148,6 +151,12 @@ namespace DiscogymPUMA2020.Controllers
             return RedirectToAction("PlannerSpecificDate", new { day = DateTime.Parse(SelectedDay).Day.ToString() });
 
             //return View("PlannerSpecificDate", DateTime.Parse(SelectedDay).Day);
+        }
+
+        public IActionResult CheckWorkout(int workoutId)
+        {
+            var exercises = _workoutExerciseRepo.GetWorkoutExercisesByWorkout(workoutId);
+            return View(exercises);
         }
 
         public IActionResult Privacy()

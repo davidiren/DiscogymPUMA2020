@@ -30,16 +30,19 @@
 
 
     <div class="text-center">
-        <div id="week">
+        <div class="container" id="week">
             @foreach (var item in Model.Week)
             {
                 if (today.Day.ToString().Equals(item.Date))
                 {
-                    <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date"><b>@item.LetterAndDate</b></a>
+                    <a class="btn-link" style="color:inherit;" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date">
+                        @*<img src="~/Images/lens-24px.svg" alt="circle"/>*@
+                        <div class="d-inline"><b>@item.LetterAndDate</b></div>
+                    </a>
                 }
                 else
                 {
-                    <a class="btn-link" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date">@item.LetterAndDate</a>
+                    <a class="btn-link" style="color: inherit;" asp-area="" asp-controller="Plan" asp-action="PlannerSpecificDate" asp-route-day="@item.Date">@item.LetterAndDate</a>
                 }
             }
         </div>
@@ -50,7 +53,7 @@
         <h5>Plan</h5>
         @foreach (var item in Model.Plans)
         {
-            <a class="mr-3 btn-link" asp-area="" asp-controller="Plan" asp-action="Index">
+            <a class="mr-3 btn-link" style="color:inherit;" asp-area="" asp-controller="Plan" asp-action="CheckWorkout" asp-route-workoutId="@item.WorkoutId">
                 <!--asp-action ska bytas till så man kan se planen-->
                 <div class="media m-3 shadow border rounded" style="height: 100px; ">
                     <img src="~/Images/workout.jpg" class="mr-3 rounded-left" width="100" height="100" />
