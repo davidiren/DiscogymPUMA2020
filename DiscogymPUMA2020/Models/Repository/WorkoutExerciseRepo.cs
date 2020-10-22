@@ -38,7 +38,7 @@ namespace DiscogymPUMA2020.Models.Repository
         public IEnumerable<WorkoutExercise> GetWorkoutExercisesByWorkout(int id)
         {
             return context.WorkoutExercise.Where(r => r.WorkoutId == id)
-                .Include(r => r.Workout);
+                .Include(r => r.Workout).Include(r => r.Exercise);
         }
     }
 }

@@ -23,15 +23,17 @@ namespace DiscogymPUMA2020.Controllers
         private readonly IExerciseRepo _exercise;
         private readonly ICategoryRepo _category;
         private readonly IUserRepo _user;
+        private readonly IExerciseLevelRepo _exerciseLevel;
         private CategoryViewModel categoryViewModel;
         private List<Exercise> chosenExercise = new List<Exercise>();
-        public ProgramController(IWorkoutExerciseRepo workoutExercise, IWorkoutRepo workout, IExerciseRepo exercise, ICategoryRepo category, IUserRepo user)
+        public ProgramController(IWorkoutExerciseRepo workoutExercise, IWorkoutRepo workout, IExerciseRepo exercise, ICategoryRepo category, IUserRepo user, IExerciseLevelRepo exerciseLevel)
         {
             _workoutExercise = workoutExercise;
             _workout = workout;
             _exercise = exercise;
             _category = category;
             _user = user;
+            _exerciseLevel = exerciseLevel;
 
             //Create selectable categories
             List<SelectListItem> categorySelectList = new List<SelectListItem>();
@@ -205,7 +207,18 @@ namespace DiscogymPUMA2020.Controllers
         public IActionResult TrainingView(int id)
         {
             var workout = _workout.GetWorkout(id);
+            var exercise = _exercise.GetExercise(workout.WorkoutExercises.FirstOrDefault(x => x.ExerciseId > 0).ExerciseId);
+            ViewBag.Level = _exerciseLevel.GetExerciseLevel(exercise.LevelId).Name;
+            ViewBag.Exercises = _workoutExercise.GetWorkoutExercisesByWorkout(id);
             return View(workout);
+        }
+
+        public IActionResult TrainingPlay(int id)
+        {
+            var workoutName = _workout.GetWorkout(id).Name;
+            ViewBag.Name = workoutName;
+            ViewBag.Exercises = _workoutExercise.GetWorkoutExercisesByWorkout(id);
+            return View();
         }
 
         /*
