@@ -19,9 +19,11 @@ namespace DiscogymPUMA2020.Controllers
         private readonly IWorkoutRepo _workoutRepo;
         private readonly IUserRepo _userRepo;
         private readonly ILogRepo _logRepo;
+        private readonly IPlanRepo _planRepo;
         private readonly ILogger<ProfileController> _logger;
         public ProfileController(ILogger<ProfileController> logger, ICategoryRepo categoryRepo,
-            IWorkoutRepo workoutRepo, IFavoriteExerciseRepo favoriteExerciseRepo, IUserRepo userRepo, ILogRepo logRepo)
+            IWorkoutRepo workoutRepo, IFavoriteExerciseRepo favoriteExerciseRepo, IUserRepo userRepo,
+            ILogRepo logRepo, IPlanRepo planRepo)
         {
             _categoryRepo = categoryRepo;
             _logger = logger;
@@ -29,6 +31,7 @@ namespace DiscogymPUMA2020.Controllers
             _userRepo = userRepo;
             _logRepo = logRepo;
             _favoriteExerciseRepo = favoriteExerciseRepo;
+            _planRepo = planRepo;
 
         }
 
@@ -40,6 +43,24 @@ namespace DiscogymPUMA2020.Controllers
                 return RedirectToAction("Index", "Plan");
             }
 
+            var plans = _planRepo.GetPlansByUser(CurrentUser);
+            int WeeklyGoal = 0;
+            int WeeklyClear = 0;
+            foreach(Plan plan in plans)
+            {
+                if ((plan.Date.CompareTo(DateTime.Now.StartOfWeek(DayOfWeek.Monday)) >= 0)
+                    && (plan.Date.CompareTo(DateTime.Now.EndOfWeek(DayOfWeek.Sunday)) <= 0))
+                {
+                    WeeklyGoal++;
+                }
+                if ((plan.Date.CompareTo(DateTime.Now.StartOfWeek(DayOfWeek.Monday)) >= 0)
+                    && (plan.Date.CompareTo(DateTime.Now) < 0))
+                {
+                    WeeklyClear++;
+                }
+            }
+            ViewBag.WeeklyGoal = WeeklyGoal;
+            ViewBag.WeeklyClear = WeeklyClear; //"weekly clear" är just nu inte 100% då "logs" inte är fullt implementerade
             return View();
         }
 
@@ -166,5 +187,18 @@ namespace DiscogymPUMA2020.Controllers
                 HttpContext.Session.SetString("CurrentUser", JsonConvert.SerializeObject(value));
             }
         }
+    }
+}
+public static class DateTimeExtensions
+{
+    public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+    {
+        int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+        return dt.AddDays(-1 * diff).Date;
+    }
+    public static DateTime EndOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+    {
+        int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+        return dt.AddDays(1 * diff).Date;
     }
 }
