@@ -31,7 +31,7 @@
         <div class="row align-items-start my-2">
             @foreach (var item in Model.Item1.Categories)
             {
-            <div class="col">
+            <div class="col px-1">
                 <a type="button" class="btn rounded-circle" asp-action="Index" asp-route-selectedCat="@item.Value">
                     @if (Model.Item1.SelectedCategories != null)
                     {
@@ -80,8 +80,8 @@
     </div>
 
 
-    <div class="d-flex mb-auto align-end align-bottom">
-        <a type="button" class="btn rounded-circle ml-auto" style="width: 40px; height: 40px;" asp-action="Create">
+    <div class="d-flex mx-4">
+        <a type="button" class="btn rounded-circle ml-auto mb-auto" style="width: 40px; height: 40px;" asp-action="Create">
             <img src="~/Images/Group 36.png" class="position-fixed" />
         </a>
     </div>

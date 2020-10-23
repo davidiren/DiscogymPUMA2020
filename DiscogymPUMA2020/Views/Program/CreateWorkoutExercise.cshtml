@@ -24,7 +24,7 @@
     <div class="row align-items-start my-2">
         @foreach (var category in Model.CategoryView.Categories)
         {
-            <div class="col">
+            <div class="col px-1">
                 <a type="button" class="btn rounded-circle" asp-action="CreateWorkoutExercise" asp-route-selectedCat="@category.Value">
                     @if (Model.CategoryView.SelectedCategories != null)
                     {
