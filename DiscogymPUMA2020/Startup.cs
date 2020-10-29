@@ -22,7 +22,7 @@ namespace DiscogymPUMA2020
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Context>(options => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB; Database=Puma; Trusted_Connection=True; ConnectRetryCount=1"));
+            services.AddDbContext<Context>(options => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB; Database=Puma; Trusted_Connection=True; ConnectRetryCount=1"), ServiceLifetime.Transient);
             services.AddTransient<ICategoryRepo, CategoryRepo>();
             services.AddTransient<IExerciseGoalRepo, ExerciseGoalRepo>();
             services.AddTransient<IExerciseLevelRepo, ExerciseLevelRepo>();

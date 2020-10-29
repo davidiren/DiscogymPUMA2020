@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DiscogymPUMA2020.Models.Repository
@@ -15,13 +16,15 @@ namespace DiscogymPUMA2020.Models.Repository
         {
             context = _context;
         }
-        public IEnumerable<Exercise> GetExercises => context.Exercise;
+        public IEnumerable<Exercise> GetExercises => context.Exercise.Include(r => r.Category);
 
-        public Exercise GetExercise(int id)
+        public Exercise GetExercise(int? id)
         {
-            return context.Exercise.Include(r => r.Category)
+           var e =  context.Exercise.Include(r => r.Category)
                 .Include(r => r.ExerciseLevel)
                 .FirstOrDefault(m => m.Id == id);
+            context.SaveChangesAsync();
+            return e;
         }
 
         public IEnumerable<Exercise> GetExercisesByCategory(int id)

@@ -11,6 +11,6 @@ namespace DiscogymPUMA2020.Models.Interface
         IEnumerable<Exercise> GetExercises { get; }
         IEnumerable<Exercise> GetExercisesByCategory(int id);
         IEnumerable<Exercise> GetExercisesByLevel(int id);
-        Exercise GetExercise(int id);
+        Exercise GetExercise(int? id);
     }
 }

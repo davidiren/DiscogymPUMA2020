@@ -5,6 +5,7 @@ using DiscogymPUMA2020.Models.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualBasic.CompilerServices;
 using Newtonsoft.Json;
 using System;
@@ -13,6 +14,8 @@ using System.Dynamic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DiscogymPUMA2020.Controllers
 {
@@ -153,32 +156,35 @@ namespace DiscogymPUMA2020.Controllers
 
         //POST: ProgramController/Create
         [HttpPost]
-        public IActionResult Create(Workout workout)
+        public async Task<IActionResult> Create(Workout workout)
         {
             var userId = _user.GetUser(CurrentUser).Id;
             string exList = HttpContext.Session.GetString("ChosenExercises");
-            List<string> Exercises = JsonConvert.DeserializeObject<List<string>>(exList);
+            List<string> exercises = JsonConvert.DeserializeObject<List<string>>(exList);
             if (workout != null)
             {
                 workout.CreatedByUserId = userId;
                 workout.WorkoutTime = 5;
                 _workout.AddWorkout(workout);                
             }
+            var w = await FindWorkout(userId, workout.Name).ConfigureAwait(true);
 
-            WorkoutExercise newWorkoutExercise = new WorkoutExercise();
-            foreach (string s in Exercises)
+
+            
+            
+            List<Exercise> eList = await ChosenExercisesListAsync(exercises).ConfigureAwait(true);
+            foreach(Exercise e in eList)
             {
-                newWorkoutExercise.ExerciseId = _exercise.GetExercise(int.Parse(s)).Id;
-                var w = _workout.GetWorkoutsByName(userId, workout.Name).ToList();
-                newWorkoutExercise.WorkoutId = w.First().Id;
-
-                _workoutExercise.AddWorkoutExercise(newWorkoutExercise);
+                WorkoutExercise newWorkoutExercise = new WorkoutExercise();
+                newWorkoutExercise.ExerciseId = e.Id;
+                newWorkoutExercise.WorkoutId = w.Id;
+                AddWorkoutExercise(newWorkoutExercise);
+                
             }
-
-            return RedirectToAction("TrainingView");
+            var final = _workout.GetWorkoutsByName(userId, workout.Name).First();
+            return RedirectToAction("TrainingView", new { id = final.Id});
         }
 
-        
         public IActionResult CreateWorkoutExercise(string selectedCat)
         {
             var exercises = _exercise.GetExercises;
@@ -219,6 +225,30 @@ namespace DiscogymPUMA2020.Controllers
             ViewBag.Name = workoutName;
             ViewBag.Exercises = _workoutExercise.GetWorkoutExercisesByWorkout(id);
             return View();
+        }
+
+        public async Task<List<Exercise>> ChosenExercisesListAsync(List<string> eList)
+        {
+            List<Exercise> e = new List<Exercise>();
+            foreach(string s in eList)
+            {
+                Exercise ex =  _exercise.GetExercise(int.Parse(s));
+                e.Add(ex);
+            }
+            
+            return e;
+        }
+
+        public async Task<Workout> FindWorkout(int userId, string name)
+        {
+            var w = _workout.GetWorkoutsByName(userId, name);
+
+            return w.First(); 
+        }
+
+        public async void AddWorkoutExercise(WorkoutExercise we)
+        {
+            _workoutExercise.AddWorkoutExercise(we);
         }
 
         /*

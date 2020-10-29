@@ -18,8 +18,8 @@
 @foreach (var item in (IEnumerable<WorkoutExercise>)ViewBag.Exercises)
 {
 <div class="embed-responsive embed-responsive-4by3">
-    <p> @item.Exercise.Video</p>
-    <!--<embed class="embed-responsive-item" src="@item.Exercise.Video" />-->
+
+    <embed class="embed-responsive-item" src="@String.Concat("www.youtube.com/", item.Exercise.Video)" />
 
 </div>
 
